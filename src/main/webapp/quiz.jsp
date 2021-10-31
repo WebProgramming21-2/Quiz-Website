@@ -18,24 +18,26 @@ Statement state = con.createStatement();
 %>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	<%
-		for (int i=0;i<3;i++) {
-			ResultSet result = state.executeQuery(sql+(i+1));
-			result.next();
-			out.println("<p> No. " + result.getString("seq") + "<p>");
-			out.println("<p> 퀴즈 제목 : " + result.getString("title") + "<p>");
-			out.println("<p> 퀴즈 내용 : " + result.getString("content") + "<p>");
-			for (int j=1;j<5;j++) {
-				out.println("<p> 선택지" + j + " : " + result.getString("choice"+j) + "<p>");
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<script src="http://code.jquery.com/jquery-1.10.1.js"></script>
+		<link href="resources/css/bootstrap.css" rel="stylesheet">
+	</head>
+	<body>
+		<%
+			for (int i=0;i<3;i++) {
+				ResultSet result = state.executeQuery(sql+(i+1));
+				result.next();
+				out.println("<p> No. " + result.getString("seq") + "<p>");
+				out.println("<p> 퀴즈 제목 : " + result.getString("title") + "<p>");
+				out.println("<p> 퀴즈 내용 : " + result.getString("content") + "<p>");
+				for (int j=1;j<5;j++) {
+					out.println("<p> 선택지" + j + " : " + result.getString("choice"+j) + "<p>");
+				}
+				out.println("<p> 정답 : " + result.getString("answer") + "<p>");
+				out.println("<hr>");
 			}
-			out.println("<p> 정답 : " + result.getString("answer") + "<p>");
-			out.println("<hr>");
-		}
-	%>
-</body>
+		%>
+	</body>
 </html>
