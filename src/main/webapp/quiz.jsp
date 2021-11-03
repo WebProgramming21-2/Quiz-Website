@@ -24,7 +24,7 @@ List<QuizDTO> quizList = QuizDAO.getInstance().getQuizList();
 				out.println("<p> 선택지" + (j+1) + " : " + quizList.get(i).getChoice()[j] + "<p>");
 			}
 			out.println("<p> 정답 : " + quizList.get(i).getAnswer() + "<p>");
-			out.println("<hr class='col-xs-12'>");
+			out.println("<hr style='border-top: 1px dotted #000000 !important;'>");
 		}
 		%>
 	</body>
