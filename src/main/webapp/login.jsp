@@ -1,60 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <html>
-	<title>메인</title>
+	<title>로그인</title>
 	<head>
 		<script src="http://code.jquery.com/jquery-1.10.1.js"></script>
 		<link href="resources/css/bootstrap.css" rel="stylesheet">
 		<style type="text/css">
-			.table {
-				text-align: center;
+			.container {
 				position: absolute;
-				top: 50%;
-				transform: translateY(-50%);
-				border-top: none;
-			}
-			#please {
-				position: absolute;
-				top: 50%;
 				left: 50%;
+				top: 50%;
 				transform: translate(-50%, -50%);
 			}
-			#learn {
-				text-align: center;
+			.badge bg-info {
 				position: absolute;
+				left: 50%;
 				top: 50%;
-				left: 30%;
-				transform: translate(-30%, -50%);
-			}
-			#quiz {
-				text-align: center;
-				position: absolute;
-				top: 50%;
-				left: 70%;
-				transform: translate(-70%, -50%);
-			}
-			#list1 {
-				position: absolute;
-				top: 70%;
-				left: 35%;
-				transform: translate(-35%, -70%);
-			}
-			#list2 {
-				position: absolute;
-				top: 70%;
-				left: 65%;
-				transform: translate(-65%, -70%);
+				transform: translate(-50%, -50%);
 			}
 		</style>
 	</head>
 	<body>
-		<%
-			// 메인 페이지로 이동했을 때 세션에 값이 담겨있는지 체크
-			String userID = null;
-			if(session.getAttribute("userID") != null){
-				userID = (String)session.getAttribute("userID");
-			}
-		%>
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		  <div class="container-fluid">
 		    <a class="navbar-brand" href="main.jsp">동국퀴즈</a>
@@ -79,14 +45,24 @@
 		    </div>
 		  </div>
 		</nav>
-		<div class="container">
-			<h1 id="please" align="center">로그인 또는 회원가입을 해주세요.</h1>
-			<div class="d-grid gap-5" id="list1">
-			  <button class="btn btn-lg btn-primary" type="button" onclick="location.href='login.jsp'">로그인</button>
-			</div>
-			<div class="d-grid gap-5" id="list2">
-			  <button class="btn btn-lg btn-primary" type="button" onclick="location.href='register.jsp'">회원가입</button>
-			</div>
+		
+		<div class="container">		<!-- 하나의 영역 생성 -->
+			<div class="col-lg-15">	<!-- 영역 크기 -->
+				<!-- 점보트론은 특정 컨텐츠, 정보를 두드러지게 하기 위한 큰 박스 -->
+				<div class="jumbotron" style="padding-top: 20px;">
+					<form method="post" action="loginAction.jsp">
+						<h1 style="text-align: center;">로그인</h1>
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="아이디" name="userID" maxlength="20">
+						</div><br>
+						<div class="form-group">
+							<input type="password" class="form-control" placeholder="비밀번호" name="userPassword" maxlength="20">
+						</div><br>
+						<input type="submit" class="btn btn-primary form-control" value="로그인">
+						<input type="reset" class="btn btn-primary form-control" value="취소">
+					</form>
+				</div>
+			</div>	
 		</div>
 	</body>
 </html>
