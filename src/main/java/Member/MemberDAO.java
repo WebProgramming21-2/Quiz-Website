@@ -60,7 +60,6 @@ public class MemberDAO {
 	}
 	
 	public boolean register(MemberDTO member) {
-		int ret;
 		if (!checkId(member.getId())) {
 			String sql = "INSERT INTO MEMBER(id, password, name) values (?, ?, ?)";
 			
@@ -70,7 +69,7 @@ public class MemberDAO {
 				prstate.setString(1, member.getId());
 				prstate.setString(2, member.getPassword());
 				prstate.setString(3, member.getName());
-				ret = prstate.executeUpdate();
+				prstate.executeUpdate();
 				return true;
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -137,6 +136,9 @@ public class MemberDAO {
 			}
 			if (result != null) {
 				result.close();
+			}
+			if (prstate != null) {
+				prstate.close();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -15,7 +15,10 @@
 		<h1>Test</h1>
 		<%
 		// 테스트용 jsp 실제 코드는 session 등 활용해야 함
-		MemberDTO member = new MemberDTO("홍길동", "asdf", "hong", -1);
+		MemberDTO member = new MemberDTO();
+		member.setId("hong");
+		member.setPassword("asdf");
+		member.setName("홍길동");
 		
 		if (MemberDAO.getInstance().register(member)) {
 			out.println("<p> 가입 성공 <p>");
