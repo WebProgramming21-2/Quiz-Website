@@ -55,6 +55,9 @@
 					<div class="form-group">
 						<input type="password" class="form-control" placeholder="비밀번호" name="userPassword" maxlength="20">
 					</div><br>
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="닉네임" name="userName" maxlength="20">
+					</div><br>
 					<input type="submit" class="btn btn-primary form-control" value="회원가입">
 					<input type="reset" class="btn btn-primary form-control" value="취소">
 				</form>
