@@ -38,22 +38,45 @@ public class MemberDAO {
 			return memberDAO;
 	}
 	
-	public boolean register(MemberDTO member) {
-		int ret;
-		String sql = "INSERT INTO MEMBER(id, password, name) values (?, ?, ?)";
+	private boolean checkId(String id) {
+		String sql = "SELECT password FROM MEMBER where id = ?";
 		
 		try {
 			getConnection();
 			prstate = con.prepareStatement(sql);
-			prstate.setString(1, member.getId());
-			prstate.setString(2, member.getPassword());
-			prstate.setString(3, member.getName());
-			ret = prstate.executeUpdate();
-			return true;
+			prstate.setString(1, id);
+			result = prstate.executeQuery();
+			
+			if (result.next()) {
+				return true;
+			}
+			return false;
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			close();
+		}
+		return false;
+	}
+	
+	public boolean register(MemberDTO member) {
+		int ret;
+		if (!checkId(member.getId())) {
+			String sql = "INSERT INTO MEMBER(id, password, name) values (?, ?, ?)";
+			
+			try {
+				getConnection();
+				prstate = con.prepareStatement(sql);
+				prstate.setString(1, member.getId());
+				prstate.setString(2, member.getPassword());
+				prstate.setString(3, member.getName());
+				ret = prstate.executeUpdate();
+				return true;
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				close();
+			}
 		}
 		return false;
 	}
@@ -77,6 +100,27 @@ public class MemberDAO {
 			close();
 		}
 		return false;
+	}
+	
+	public String getName(String id) {
+		String sql = "SELECT name FROM MEMBER where id = ?";
+		
+		try {
+			getConnection();
+			prstate = con.prepareStatement(sql);
+			prstate.setString(1, id);
+			result = prstate.executeQuery();
+			
+			if (result.next()) {
+				return result.getString(1);
+			}
+			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return null;
 	}
 	
 	private Connection getConnection() throws SQLException {
