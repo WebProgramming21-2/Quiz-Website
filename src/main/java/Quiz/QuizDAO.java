@@ -62,6 +62,8 @@ public class QuizDAO {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 		
 		return ret;
