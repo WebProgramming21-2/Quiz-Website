@@ -48,20 +48,17 @@
 		
 		<div class="container">		<!-- 하나의 영역 생성 -->
 			<div class="col-lg-15">	<!-- 영역 크기 -->
-				<!-- 점보트론은 특정 컨텐츠, 정보를 두드러지게 하기 위한 큰 박스 -->
-				<div class="jumbotron" style="padding-top: 20px;">
-					<form method="post" action="loginAction.jsp">
-						<h1 style="text-align: center;">로그인</h1>
-						<div class="form-group">
-							<input type="text" class="form-control" placeholder="아이디" name="userID" maxlength="20">
-						</div><br>
-						<div class="form-group">
-							<input type="password" class="form-control" placeholder="비밀번호" name="userPassword" maxlength="20">
-						</div><br>
-						<input type="submit" class="btn btn-primary form-control" value="로그인">
-						<input type="reset" class="btn btn-primary form-control" value="취소">
-					</form>
-				</div>
+				<form method="post" action="loginAction.jsp">
+					<h1 style="text-align: center;">로그인</h1>
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="아이디" name="userID" maxlength="20">
+					</div><br>
+					<div class="form-group">
+						<input type="password" class="form-control" placeholder="비밀번호" name="userPassword" maxlength="20">
+					</div><br>
+					<input type="submit" class="btn btn-primary form-control" value="로그인">
+					<input type="reset" class="btn btn-primary form-control" value="취소">
+				</form>
 			</div>	
 		</div>
 	</body>
