@@ -47,7 +47,7 @@
 			script.println("<script>");
 			script.println("alert('로그인에 실패했습니다.')");
 			script.println("location.href='login.jsp'");
-			script.println("</script>");
+			script.println("</script>"); 
 		}
 	}catch(Exception e){
 		out.println(e.getMessage());
