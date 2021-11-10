@@ -45,7 +45,7 @@
 				script.println("</script>");
 			}
 	}catch(Exception e){
-		out.println(e.getMessage());
+		out.println(e.getMessage()); 
 	}
 %>
 </body>

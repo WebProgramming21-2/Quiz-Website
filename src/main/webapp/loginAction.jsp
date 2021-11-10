@@ -35,7 +35,7 @@
 			session.setAttribute("login", member);
 			session.setAttribute("userID", user_id);
 		}
-		// 로그인 성공시 true, 실패시 false 반환
+		// 로그인 성공시 true, 실패시 false 반환 
 		boolean res_login = dao.login(member);
 	
 		if(res_login){ // 로그인 성공 -> main.jsp로 이동
