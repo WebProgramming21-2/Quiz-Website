@@ -60,40 +60,42 @@
 				script.println("history.back()");
 				script.println("</script>");
 			}
-			if(!id_validCheck(user_id)){
+			else if(!id_validCheck(user_id)){
 				script.println("<script>");
 				script.println("alert('유효하지 않은 아이디입니다.')");
 				script.println("history.back()");
 				script.println("</script>");
 			}
-			if(!pw_validCheck(user_pw)){
+			else if(!pw_validCheck(user_pw)){
 				script.println("<script>");
 				script.println("alert('유효하지 않은 비밀번호입니다.')");
 				script.println("history.back()");
 				script.println("</script>");
 			}
-			if(!name_validCheck(user_name)){
+			else if(!name_validCheck(user_name)){
 				script.println("<script>");
 				script.println("alert('유효하지 않은 닉네임입니다.')");
 				script.println("history.back()");
 				script.println("</script>");
 			}
+			else{
 			// dao, dto 객체 생성
-			MemberDAO dao = MemberDAO.getInstance();
-			MemberDTO member = new MemberDTO(user_id, user_pw, user_name, 0);
-			// 회원가입 성공시 true, 실패시 false 반환
-			boolean res_regist = dao.register(member);
-			if(res_regist){ // 회원가입 성공
-				script.println("<script>");
-				script.println("alert('회원가입을 축하드립니다.')");
-				script.println("location.href='login.jsp'");
-				script.println("</script>");
-			}
-			else{ // 회원가입 실패
-				script.println("<script>");
-				script.println("alert('회원가입에 실패했습니다.')");
-				script.println("history.back()");
-				script.println("</script>");
+				MemberDAO dao = MemberDAO.getInstance();
+				MemberDTO member = new MemberDTO(user_id, user_pw, user_name, 0);
+				// 회원가입 성공시 true, 실패시 false 반환
+				boolean res_regist = dao.register(member);
+				if(res_regist){ // 회원가입 성공
+					script.println("<script>");
+					script.println("alert('회원가입을 축하드립니다.')");
+					script.println("location.href='login.jsp'");
+					script.println("</script>");
+				}
+				else{ // 회원가입 실패
+					script.println("<script>");
+					script.println("alert('회원가입에 실패했습니다.')");
+					script.println("history.back()");
+					script.println("</script>");
+				}
 			}
 	}catch(Exception e){
 		out.println(e.getMessage());  
