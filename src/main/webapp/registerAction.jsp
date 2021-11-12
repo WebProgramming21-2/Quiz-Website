@@ -67,7 +67,7 @@
 				script.println("</script>");
 			}
 			else if(!pw_validCheck(user_pw)){
-				script.println("<script>");
+				script.println("<script>"); 
 				script.println("alert('유효하지 않은 비밀번호입니다.')");
 				script.println("history.back()");
 				script.println("</script>");
@@ -93,7 +93,6 @@
 					
 				}
 				else{ // 회원가입 실패
-					
 					script.println("<script>");
 					script.println("alert('회원가입에 실패했습니다.')");
 					script.println("history.back()");
