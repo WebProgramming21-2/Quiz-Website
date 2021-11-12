@@ -1,46 +1,97 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
 <%@page import="Member.MemberDAO" %>
 <%@page import="Member.MemberDTO" %>
 <%@ page import="java.io.PrintWriter" %>
 <% request.setCharacterEncoding("UTF-8"); %>
+<%!
+	private boolean id_validCheck(String id){
+		if(id.contains(" ")) // ê³µë°± ê²€ì‚¬
+			return false;
+		if((id.length()<4) && (id.length()>16)) // ì•„ì´ë””ëŠ” 4~16ìë§Œ ìœ íš¨
+			return false;
+		if(id.matches(".*[ã„±-ã…ã…-ã…£ê°€-í£]+.*")) // ì•„ì´ë””ì— í•œê¸€ì€ ë„£ì„ ìˆ˜ ì—†ìŒ.
+			return false;
+		return true;
+	}
 
+	private boolean pw_validCheck(String pw){
+		if(pw.contains(" ")) // ê³µë°± ê²€ì‚¬
+			return false;
+		if(!(pw.matches(".*[a-zA-Z].*") && pw.matches(".*[0-9].*"))) // ë¹„ë°€ë²ˆí˜¸ëŠ” ì˜ë¬¸, ìˆ«ìë§Œ ìœ íš¨. ì˜ë¬¸ê³¼ ìˆ«ì í•„ìˆ˜ í¬í•¨
+			return false;
+		if((pw.length() < 8) &&(pw.length()>16)) // ë¹„ë°€ë²ˆí˜¸ëŠ” 8~16ìë§Œ ìœ íš¨
+			return false;
+		return true;
+	}
+	
+	private boolean name_validCheck(String name){
+		if(name.contains(" ")) // ê³µë°± ê²€ì‚¬
+			return false;
+		if((name.length() < 2) &&(name.length()>10)) // ë‹‰ë„¤ì„ ê¸¸ì´ëŠ” 2~10ì
+			return false;
+		return true;
+	}
+	
+	// ì¶”ê°€ êµ¬í˜„?(ë‹‰ë„¤ì„ì— ìš•ì„¤ í•„í„°ë§)
+	private boolean filtering_curse(String name){
+		return true;
+	}
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
 <%
 	try{
 			PrintWriter script = response.getWriter();
-			// register.jsp¿¡¼­ ¹Ş¾Æ¿Â Á¤º¸¸¦ String¿¡ ÀúÀå
-			String user_id = request.getParameter("userID").trim();
-			String user_pw = request.getParameter("userPassword").trim();
-			String user_name = request.getParameter("userName").trim();
-			// °ø¶õÀÌ ÀÖÀ»°æ¿ì register.jsp·Î º¸³½´Ù.
-			if(user_id == "" || user_pw == "" || user_name == ""){
+			// register.jspì—ì„œ ë°›ì•„ì˜¨ ì •ë³´ë¥¼ Stringì— ì €ì¥
+			String user_id = request.getParameter("userID");
+			String user_pw = request.getParameter("userPassword");
+			String user_name = request.getParameter("userName");
+			// ê³µë€ì´ ìˆì„ê²½ìš° register.jspë¡œ ë³´ë‚¸ë‹¤.
+			if(user_id == null || user_pw == null || user_name == null){
 				script.println("<script>");
-				script.println("alert('ÀÔ·ÂµÇÁö ¾ÊÀº »çÇ×ÀÌ ÀÖ½À´Ï´Ù.')");
+				script.println("alert('ì…ë ¥ë˜ì§€ ì•Šì€ ì‚¬í•­ì´ ìˆìŠµë‹ˆë‹¤.')");
 				script.println("history.back()");
 				script.println("</script>");
 			}
-			// dao, dto °´Ã¼ »ı¼º
+			if(!id_validCheck(user_id)){
+				script.println("<script>");
+				script.println("alert('ìœ íš¨í•˜ì§€ ì•Šì€ ì•„ì´ë””ì…ë‹ˆë‹¤.')");
+				script.println("history.back()");
+				script.println("</script>");
+			}
+			if(!pw_validCheck(user_pw)){
+				script.println("<script>");
+				script.println("alert('ìœ íš¨í•˜ì§€ ì•Šì€ ë¹„ë°€ë²ˆí˜¸ì…ë‹ˆë‹¤.')");
+				script.println("history.back()");
+				script.println("</script>");
+			}
+			if(!name_validCheck(user_name)){
+				script.println("<script>");
+				script.println("alert('ìœ íš¨í•˜ì§€ ì•Šì€ ë‹‰ë„¤ì„ì…ë‹ˆë‹¤.')");
+				script.println("history.back()");
+				script.println("</script>");
+			}
+			// dao, dto ê°ì²´ ìƒì„±
 			MemberDAO dao = MemberDAO.getInstance();
 			MemberDTO member = new MemberDTO(user_id, user_pw, user_name, 0);
-			// È¸¿ø°¡ÀÔ ¼º°ø½Ã true, ½ÇÆĞ½Ã false ¹İÈ¯
+			// íšŒì›ê°€ì… ì„±ê³µì‹œ true, ì‹¤íŒ¨ì‹œ false ë°˜í™˜
 			boolean res_regist = dao.register(member);
-			if(res_regist){ // È¸¿ø°¡ÀÔ ¼º°ø
+			if(res_regist){ // íšŒì›ê°€ì… ì„±ê³µ
 				script.println("<script>");
-				script.println("alert('È¸¿ø°¡ÀÔÀ» ÃàÇÏµå¸³´Ï´Ù.')");
+				script.println("alert('íšŒì›ê°€ì…ì„ ì¶•í•˜ë“œë¦½ë‹ˆë‹¤.')");
 				script.println("location.href='login.jsp'");
 				script.println("</script>");
 			}
-			else{ // È¸¿ø°¡ÀÔ ½ÇÆĞ
+			else{ // íšŒì›ê°€ì… ì‹¤íŒ¨
 				script.println("<script>");
-				script.println("alert('È¸¿ø°¡ÀÔ¿¡ ½ÇÆĞÇß½À´Ï´Ù.')");
+				script.println("alert('íšŒì›ê°€ì…ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤.')");
 				script.println("history.back()");
 				script.println("</script>");
 			}

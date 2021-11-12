@@ -5,6 +5,16 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="Quiz.*" %>
 <%
+	PrintWriter script = response.getWriter();
+	String login = (String)session.getAttribute("login");
+	if(login == null){
+		script.println("<script>");
+		script.println("alert('로그인이 필요합니다.')");
+		script.println("location.href='login.jsp'");
+		script.println("</script>");
+	}
+%>
+<%
 List<QuizDTO> quizList = QuizDAO.getInstance().getQuizList();
 %>
 <!DOCTYPE html>
@@ -50,7 +60,6 @@ List<QuizDTO> quizList = QuizDAO.getInstance().getQuizList();
 			
 			// 데이터 없을 때
 			if(quizID == 0){
-				PrintWriter script = response.getWriter();
 				script.println("<script>");
 				script.println("aleart('유효하지 않은 글입니다.')");
 				script.println("location.href='studyView.jsp'");
@@ -85,10 +94,10 @@ List<QuizDTO> quizList = QuizDAO.getInstance().getQuizList();
 		
 		<div class="container">
 			<div class="row1">
-				<div class="card text-white bg-info mb-3" style="max-width: 40rem;">
-				  <div class="card-header">No.<%=quiz.getId() %></div>
+			<div class="card text-white bg-info mb-3" style="max-width: 40rem;">
+				<div class="card-header">No.<%=quiz.getId() %></div>
 				  <div class="card-body">
-				    <h4 class="card-title"></h4>
+				  <h4 class="card-title"></h4>
 				    <h4 class="card-text" id="card-text"><%= quiz.getContent() %></h4>
 				  </div>
 				</div>

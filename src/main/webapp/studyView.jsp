@@ -3,6 +3,17 @@
 <%@ page import="java.util.*" %>
 <%@ page import="java.sql.*" %>
 <%@ page import="Quiz.*" %>
+<%@ page import="java.io.*" %>
+<%
+	PrintWriter script = response.getWriter();
+	String login = (String)session.getAttribute("login");
+	if(login == null){
+		script.println("<script>");
+		script.println("alert('로그인이 필요합니다.')");
+		script.println("location.href='login.jsp'");
+		script.println("</script>");
+	}
+%>
 <%
 List<QuizDTO> quizList = QuizDAO.getInstance().getQuizList();
 %>

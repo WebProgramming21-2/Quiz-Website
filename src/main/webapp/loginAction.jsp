@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="UTF-8"%>
 <%@ page import="java.io.PrintWriter" %>
 <%@page import="Member.MemberDAO"%>
 <%@page import="Member.MemberDTO"%>
@@ -16,36 +16,35 @@
 	try{
 		PrintWriter script = response.getWriter();
 	
-		// login.jsp·ÎºÎÅÍ ¹ŞÀº Á¤º¸¸¦ String¿¡ ÀúÀå
+		// login.jspë¡œë¶€í„° ë°›ì€ ì •ë³´ë¥¼ Stringì— ì €ì¥
 		String user_id = request.getParameter("userID").trim();
 		String user_pw = request.getParameter("userPassword").trim();
-		// ÀÔ·Â¶õÀ» ºñ¿î °æ¿ì
+		// ì…ë ¥ë€ì„ ë¹„ìš´ ê²½ìš°
 		if(user_id == "" || user_pw == "" ){
 			script.println("<script>");
-			script.println("alert('ÀÔ·ÂÇÏÁö ¾ÊÀº »çÇ×ÀÌ ÀÖ½À´Ï´Ù.')");
-			script.println("history.back()"); // login.jsp·Î ÀÌµ¿
+			script.println("alert('ì…ë ¥í•˜ì§€ ì•Šì€ ì‚¬í•­ì´ ìˆìŠµë‹ˆë‹¤.')");
+			script.println("history.back()"); // login.jspë¡œ ì´ë™
 			script.println("</script>");
 		}
-		// dao °´Ã¼¸¦ getInstance ¸Ş¼Òµå¸¦ ÀÌ¿ëÇØ °¡Á®¿È
+		// dao ê°ì²´ë¥¼ getInstance ë©”ì†Œë“œë¥¼ ì´ìš©í•´ ê°€ì ¸ì˜´
 		MemberDAO dao = MemberDAO.getInstance();
-		// dto °´Ã¼ »ı¼º
+		// dto ê°ì²´ ìƒì„±
 		MemberDTO member = new MemberDTO(user_id, user_pw, null, 0);
-		// °´Ã¼ »ı¼º ¼º°ø½Ã session¿¡ loginµÈ »óÅÂ¿Í userID ¼³Á¤
 		if(member != null && !member.getId().equals("")){
-			session.setAttribute("login", member);
 			session.setAttribute("userID", user_id);
 		}
-		// ·Î±×ÀÎ ¼º°ø½Ã true, ½ÇÆĞ½Ã false ¹İÈ¯ 
+		// ë¡œê·¸ì¸ ì„±ê³µì‹œ true, ì‹¤íŒ¨ì‹œ false ë°˜í™˜ 
 		boolean res_login = dao.login(member);
 	
-		if(res_login){ // ·Î±×ÀÎ ¼º°ø -> main.jsp·Î ÀÌµ¿
+		if(res_login){ // ë¡œê·¸ì¸ ì„±ê³µ -> main.jspë¡œ ì´ë™
+			session.setAttribute("login", "login");
 			script.println("<script>");
 			script.println("location.href='main.jsp'");
 			script.println("</script>");
 		}
-		else{ // ·Î±×ÀÎ ½ÇÆĞ -> login.jsp·Î ÀÌµ¿
+		else{ // ë¡œê·¸ì¸ ì‹¤íŒ¨ -> login.jspë¡œ ì´ë™
 			script.println("<script>");
-			script.println("alert('·Î±×ÀÎ¿¡ ½ÇÆĞÇß½À´Ï´Ù.')");
+			script.println("alert('ë¡œê·¸ì¸ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤.')");
 			script.println("location.href='login.jsp'");
 			script.println("</script>"); 
 		}
