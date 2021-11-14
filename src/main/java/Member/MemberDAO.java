@@ -38,7 +38,7 @@ public class MemberDAO {
 			return memberDAO;
 	}
 	
-	private boolean checkId(String id) {
+	public boolean checkId(String id) {
 		String sql = "SELECT password FROM MEMBER where id = ?";
 		
 		try {
