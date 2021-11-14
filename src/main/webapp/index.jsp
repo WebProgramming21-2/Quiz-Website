@@ -3,6 +3,10 @@
 <html>
 	<title>메인</title>
 	<head>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+		
 		<script src="http://code.jquery.com/jquery-1.10.1.js"></script>
 		<link href="resources/css/bootstrap.css" rel="stylesheet">
 		<style type="text/css">
@@ -15,9 +19,9 @@
 			}
 			#please {
 				position: absolute;
-				top: 50%;
+				top: 40%;
 				left: 50%;
-				transform: translate(-50%, -50%);
+				transform: translate(-50%, -40%);
 			}
 			#learn {
 				text-align: center;
@@ -45,6 +49,9 @@
 				left: 65%;
 				transform: translate(-65%, -70%);
 			}
+			font {
+				font-family: 'Jua', sans-serif;
+			}
 		</style>
 	</head>
 	<body>
@@ -57,7 +64,7 @@
 		%>
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		  <div class="container-fluid">
-		    <a class="navbar-brand" href="index.jsp">동국퀴즈</a>
+		    <a class="navbar-brand" href="index.jsp"><font size="6">동국퀴즈</font></a>
 		    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
 		      <span class="navbar-toggler-icon"></span>
 		    </button>
@@ -65,27 +72,27 @@
 		    <div class="collapse navbar-collapse" id="navbarColor03">
 		      <ul class="navbar-nav me-auto">
 		        <li class="nav-item">
-		          <a class="nav-link active" href="index.jsp">Home
+		          <a class="nav-link active" href="index.jsp"><font size="4">Home</font>
 		            <span class="visually-hidden"></span>
 		          </a>
 		        </li>
 		        <li class="nav-item">
-		          <a class="dropdown-item" href="login.jsp">로그인</a>
+		          <a class="nav-link active" href="login.jsp"><font size="4">로그인</font></a>
 		        </li>
 		        <li class="nav-item">
-		          <a class="dropdown-item" href="register.jsp">회원가입</a>
+		          <a class="nav-link active" href="register.jsp"><font size="4">회원가입</font></a>
 		        </li>
 		      </ul>
 		    </div>
 		  </div>
 		</nav>
 		<div class="container">
-			<h1 id="please" align="center">로그인 또는 회원가입을 해주세요.</h1>
+			<h1 id="please" align="center"><font size="7">로그인 또는 회원가입을 해주세요.</font></h1>
 			<div class="d-grid gap-5" id="list1">
-			  <button class="btn btn-lg btn-primary" type="button" onclick="location.href='login.jsp'">로그인</button>
+			  <button class="btn btn-lg btn-primary" type="button" onclick="location.href='login.jsp'"><font size="6">로그인</font></button>
 			</div>
 			<div class="d-grid gap-5" id="list2">
-			  <button class="btn btn-lg btn-primary" type="button" onclick="location.href='register.jsp'">회원가입</button>
+			  <button class="btn btn-lg btn-primary" type="button" onclick="location.href='register.jsp'"><font size="6">회원가입</font></button>
 			</div>
 		</div>
 	</body>

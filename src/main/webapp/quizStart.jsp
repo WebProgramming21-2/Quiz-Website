@@ -1,41 +1,50 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.io.PrintWriter" %>
 <%@ page import="java.util.*" %>
 <%@ page import="java.sql.*" %>
 <%@ page import="Quiz.*" %>
-<%@ page import="java.io.*" %>
-<%
-	PrintWriter script = response.getWriter();
-	String login = (String)session.getAttribute("login");
-	if(login == null){
-		script.println("<script>");
-		script.println("alert('로그인이 필요합니다.')");
-		script.println("location.href='login.jsp'");
-		script.println("</script>");
-	}
-%>
-<%
-List<QuizDTO> quizList = QuizDAO.getInstance().getQuizList();
-%>
-<!DOCTYPE html>
 <html>
+	<title>quiz</title>
 	<head>
-		<meta charset="UTF-8">
-		<title>학습목록</title>
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+		
 		<script src="http://code.jquery.com/jquery-1.10.1.js"></script>
 		<link href="resources/css/bootstrap.css" rel="stylesheet">
-		
 		<style type="text/css">
+			#wait {
+				position: absolute;
+				top: 45%;
+				left: 50%;
+				transform: translate(-50%, -45%);
+				font-family: 'Jua', sans-serif;
+			}
+			#quiz {
+				position: absolute;
+				top: 70%;
+				left: 50%;
+				transform: translate(-50%, -70%);
+				font-size: 40px;
+				font-family: 'Jua', sans-serif;
+			}
 			font {
 				font-family: 'Jua', sans-serif;
 			}
 		</style>
+		
 	</head>
 	<body>
 		<%
+			PrintWriter script = response.getWriter();
+			String login = (String)session.getAttribute("login");
+			if(login == null){
+				script.println("<script>");
+				script.println("alert('로그인이 필요합니다.')");
+				script.println("location.href='login.jsp'");
+				script.println("</script>");
+			}
 			// 메인 페이지로 이동했을 때 세션에 값이 담겨있는지 체크
 			String userID = null;
 			if(session.getAttribute("userID") != null){
@@ -52,12 +61,11 @@ List<QuizDTO> quizList = QuizDAO.getInstance().getQuizList();
 		    <div class="collapse navbar-collapse" id="navbarColor03">
 			  <ul class="navbar-nav me-auto">
 		        <li class="nav-item">
-		          <a class="nav-link active" href="main.jsp"><font size="4">Home</font></a>
+		          <a class="nav-link active" href="main.jsp"><font size="4">Home</font>
+		            <span class="visually-hidden"></span>
+		          </a>
 		        </li>
-		        <li class="nav-item">
-		          <a class="nav-link active" href="studyView.jsp"><font size="4">학습모드</font></a>
-		        </li>
-		        <li class="nav-item">
+		       <li class="nav-item">
 		            <a class="nav-link active" href="mypage.jsp"><font size="4"><%=userID %></font></a>
 		        </li>
 		        <li class="nav-item">
@@ -67,30 +75,10 @@ List<QuizDTO> quizList = QuizDAO.getInstance().getQuizList();
 		    </div>
 		  </div>
 		</nav>
-		
-		<div class="container">
-			<div class="row">
-				<table class="table table-hover" style="text-align: center">
-				  <thead>
-				    <tr>
-				      <th scope="col"><font size="">번호</font></th>
-				      <th scope="col"><font>문제</font></th>
-				    </tr>
-				  </thead>
-				  <tbody>
-					  <%
-					  	for(int i = 0; i < quizList.size(); i++) {
-					  %>
-					    <tr class="table-active">
-					      <th scope="row"><font>No.<%= quizList.get(i).getId() %></font></th>
-					      <td><a href="study.jsp?quizID=<%= quizList.get(i).getId() %>"><font><%= quizList.get(i).getTitle() %></font></a></td>
-					    </tr>
-					  <%
-					    } 
-					  %>
-				  </tbody>
-				</table>
-			</div>
+		<div id="wait">
+			<h1><font>준비되면 시작 버튼을 눌러 퀴즈를 시작하세요!</font></h1>
+			<h1 align="center"><font>각 퀴즈 당 제한시간은 10초 입니다.</font></h1>
 		</div>
+		<button type="button" class="btn btn-outline-info" id="quiz" onclick="location.href='quiz.jsp'">시작</button>
 	</body>
 </html>

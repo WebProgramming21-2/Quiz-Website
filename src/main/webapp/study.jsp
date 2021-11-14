@@ -22,6 +22,9 @@ List<QuizDTO> quizList = QuizDAO.getInstance().getQuizList();
 	<head>
 		<meta charset="UTF-8">
 		<title>학습목록</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
 		<script src="http://code.jquery.com/jquery-1.10.1.js"></script>
 		<link href="resources/css/bootstrap.css" rel="stylesheet">
 		<style type="text/css">
@@ -42,6 +45,9 @@ List<QuizDTO> quizList = QuizDAO.getInstance().getQuizList();
 				top: 90%;
 				left: 90%;
 				transform: translate(-90%, -90%);
+			}
+			font {
+				font-family: 'Jua', sans-serif;
 			}
 		</style>
 	</head>
@@ -71,7 +77,7 @@ List<QuizDTO> quizList = QuizDAO.getInstance().getQuizList();
 		%>
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		  <div class="container-fluid">
-		    <a class="navbar-brand" href="main.jsp">동국퀴즈</a>
+		    <a class="navbar-brand" href="main.jsp"><font size="6">동국퀴즈</font></a>
 		    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
 		      <span class="navbar-toggler-icon"></span>
 		    </button>
@@ -79,13 +85,16 @@ List<QuizDTO> quizList = QuizDAO.getInstance().getQuizList();
 		    <div class="collapse navbar-collapse" id="navbarColor03">
 			  <ul class="navbar-nav me-auto">
 		        <li class="nav-item">
-		          <a class="nav-link active" href="main.jsp">Home</a>
+		          <a class="nav-link active" href="main.jsp"><font size="4">Home</font></a>
 		        </li>
 		        <li class="nav-item">
-		          <a class="nav-link active" href="studyView.jsp">학습모드</a>
+		          <a class="nav-link active" href="studyView.jsp"><font size="4">학습모드</font></a>
+		        </li>
+		       <li class="nav-item">
+		            <a class="nav-link active" href="mypage.jsp"><font size="4"><%=userID %></font></a>
 		        </li>
 		        <li class="nav-item">
-		            <a class="dropdown-item" href="logoutAction.jsp"><%=userID %> 로그아웃</a>
+		            <a class="nav-link active" href="logoutAction.jsp"><font size="4">로그아웃</font></a>
 		        </li>
 		      </ul>
 		    </div>
@@ -95,10 +104,10 @@ List<QuizDTO> quizList = QuizDAO.getInstance().getQuizList();
 		<div class="container">
 			<div class="row1">
 			<div class="card text-white bg-info mb-3" style="max-width: 40rem;">
-				<div class="card-header">No.<%=quiz.getId() %></div>
+				<div class="card-header"><font size="5">No.<%=quiz.getId() %></font></div>
 				  <div class="card-body">
 				  <h4 class="card-title"></h4>
-				    <h4 class="card-text" id="card-text"><%= quiz.getContent() %></h4>
+				    <h4 class="card-text" id="card-text"><font><%= quiz.getContent() %></font></h4>
 				  </div>
 				</div>
 			</div>
@@ -107,13 +116,13 @@ List<QuizDTO> quizList = QuizDAO.getInstance().getQuizList();
 					<%
 						for (int i = 0; i < 4; i++) {
 					%>
-					<button class="btn btn-lg btn-primary" type="button" onclick="check_answer(<%=i+1 %>)"><%=i+1 %> <%=": " %> <%=quiz.getChoice()[i] %></button>
+					<button class="btn btn-lg btn-primary" type="button" onclick="check_answer(<%=i+1 %>)"><font size="4"><%=i+1 %> <%=": " %> <%=quiz.getChoice()[i] %></font></button>
 				  	<%
 						}
 				  	%>
 				</div>
 			</div>
-			<button type="button" class="btn btn-outline-info" id="tolist" onclick="window.history.back()">목록으로</button>
+			<button type="button" class="btn btn-outline-info" id="tolist" onclick="location='studyView.jsp'"><font size="5">목록으로</font></button>
 		</div>
 		
 		<script type="text/javascript">
