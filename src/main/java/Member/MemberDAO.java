@@ -38,7 +38,7 @@ public class MemberDAO {
 			return memberDAO;
 	}
 	
-	private boolean checkId(String id) {
+	public boolean checkId(String id) {
 		String sql = "SELECT password FROM MEMBER where id = ?";
 		
 		try {
@@ -120,6 +120,51 @@ public class MemberDAO {
 			close();
 		}
 		return null;
+	}
+	
+	public void setScore(String id, int score) {
+		if (checkId(id)) {
+			String sql = "UPDATE MEMBER SET score = ? where id = ?";
+			
+			try {
+				getConnection();
+				prstate = con.prepareStatement(sql);
+				prstate.setInt(1, score);
+				prstate.setString(2, id);
+				prstate.executeUpdate();
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				close();
+			}
+		}
+	}
+	
+	public List<Rank> getRankList() {
+		List<Rank> ret = new ArrayList<Rank>();
+		
+		try {
+			getConnection();
+			state = con.createStatement();
+			String sql = "SELECT * FROM MEMBER ORDER BY score DESC";
+			result = state.executeQuery(sql);
+			while (result.next()) {
+				if (result.getInt("score") < 0) break;
+				Rank rank = new Rank();
+				rank.setId(result.getString("id"));
+				rank.setName(result.getString("name"));
+				rank.setScore(result.getInt("score"));
+				
+				ret.add(rank);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		return ret;
 	}
 	
 	private Connection getConnection() throws SQLException {
