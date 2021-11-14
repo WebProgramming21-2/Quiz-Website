@@ -88,7 +88,7 @@ List<QuizDTO> quizList = QuizDAO.getInstance().getQuizList();
 		          <a class="nav-link active" href="main.jsp"><font size="4">Home</font></a>
 		        </li>
 		        <li class="nav-item">
-		          <a class="nav-link active" href="studyView.jsp">학습모드</a>
+		          <a class="nav-link active" href="studyView.jsp"><font size="4">학습모드</font></a>
 		        </li>
 		       <li class="nav-item">
 		            <a class="nav-link active" href="mypage.jsp"><font size="4"><%=userID %></font></a>

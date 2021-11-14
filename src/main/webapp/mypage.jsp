@@ -2,35 +2,32 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.io.*" %>
 <html>
-	<title>quiz</title>
+	<title>모드선택</title>
 	<head>
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
-		
 		<script src="http://code.jquery.com/jquery-1.10.1.js"></script>
 		<link href="resources/css/bootstrap.css" rel="stylesheet">
 		<style type="text/css">
-			#wait {
-				position: absolute;
-				top: 45%;
-				left: 50%;
-				transform: translate(-50%, -45%);
-				font-family: 'Jua', sans-serif;
-			}
-			#quiz {
-				position: absolute;
-				top: 70%;
-				left: 50%;
-				transform: translate(-50%, -70%);
-				font-size: 40px;
-				font-family: 'Jua', sans-serif;
-			}
 			font {
 				font-family: 'Jua', sans-serif;
 			}
+			#all_inf {
+				position: absolute;
+				top: 46%;
+				left: 50%;
+				transform: translate(-50%, -46%);
+			}
+			#out {
+				position: relative;
+				left: 33%;
+				top: 0%;
+			}
+			#Pid, #Pnick {
+				background-color: white;
+			}
 		</style>
-		
 	</head>
 	<body>
 		<%
@@ -62,7 +59,7 @@
 		            <span class="visually-hidden"></span>
 		          </a>
 		        </li>
-		       <li class="nav-item">
+		        <li class="nav-item">
 		            <a class="nav-link active" href="mypage.jsp"><font size="4"><%=userID %></font></a>
 		        </li>
 		        <li class="nav-item">
@@ -72,10 +69,18 @@
 		    </div>
 		  </div>
 		</nav>
-		<div id="wait">
-			<h1><font>퀴즈를 무사히 끝마쳤습니다!</font></h1>
-			<h1 align="center"><font>당신의 랭킹을 확인해보세요!</font></h1>
+		<br>
+		
+		<div id="all_inf">
+			<p id="inf" align="center"><font size="7">회원정보</font></p><br><br>
+			
+			<div id="Pid" style="border:1px solid; padding:10px;">
+				<font size="5">ID: <%out.print("사용자 아이디 출력부분"); %> </font>
+			</div><br><br>
+			<div id="Pnick" style="border:1px solid; padding:10px;">
+				<font size="5">Nickname: <%out.print("사용자 닉네임 출력부분"); %> </font>
+			</div><br><br>
+			<button type="button" class="btn btn-outline-info" id="out" onclick="location.href='registeroutAction.jsp'"><font size="5">회원탈퇴</font></button>
 		</div>
-		<button type="button" class="btn btn-outline-info" id="quiz" onclick="location.href='rankAction.jsp'">랭킹</button>
 	</body>
 </html>

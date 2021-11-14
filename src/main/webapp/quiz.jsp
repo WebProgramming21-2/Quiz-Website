@@ -32,11 +32,17 @@ List<QuizDTO> quizList = QuizDAO.getInstance().getQuizList();
 				left: 50%;
 				transform: translate(-50%, -70%);
 			}
-			#tolist {
+			#tolist1 {
 				position: absolute;
 				top: 90%;
 				left: 90%;
 				transform: translate(-90%, -90%);
+			}
+			#tolist2 {
+				position: absolute;
+				top: 100%;
+				left: 90%;
+				transform: translate(-90%, -100%);
 			}
 			font {
 				font-family: 'Jua', sans-serif;
@@ -45,6 +51,14 @@ List<QuizDTO> quizList = QuizDAO.getInstance().getQuizList();
 	</head>
 	<body>
 		<%
+			PrintWriter script = response.getWriter();
+			String login = (String)session.getAttribute("login");
+			if(login == null){
+				script.println("<script>");
+				script.println("alert('로그인이 필요합니다.')");
+				script.println("location.href='login.jsp'");
+				script.println("</script>");
+			}
 			// 메인 페이지로 이동했을 때 세션에 값이 담겨있는지 체크
 			String userID = null;
 			if(session.getAttribute("userID") != null){
@@ -101,8 +115,10 @@ List<QuizDTO> quizList = QuizDAO.getInstance().getQuizList();
 				</div>
 			</div>
 			<%--이 버튼을 누르면 예를 들어 quizList.get(i)부분의 i 부분을 ++시킨다거나 해서 문제를 넘겨줘야 할 것임. onclick에 해당 내용을 작성하면 좋을 듯함.--%>
-			<button type="button" class="btn btn-outline-info" id="tolist" onclick=""><font size="5">다음으로</font></button>
-			<%--퀴즈 목록이 끝나면 이 버튼은 beforeRank.jsp로 이동하는 버튼이 되어야함. 아니면 퀴즈목록 길이를 측정해서 if-else문으로 상황에 따라 버튼을 바꿔주는 방법도 있음. --%>
+			<button type="button" class="btn btn-outline-info" id="tolist1" onclick=""><font size="5">다음으로</font></button>
+			<%--참고:아래 버튼은 동작참고용이고, 위버튼 하나에서 해결하면 좋을 듯 합니다.
+			퀴즈 목록이 끝나면 위 버튼은 아래버튼의 동작처럼 beforeRank.jsp로 이동하는 버튼이 되어야함. 아니면 퀴즈목록 길이를 측정해서 if-else문으로 상황에 따라 버튼을 바꿔주는 방법도 있음. --%>
+			<button type="button" class="btn btn-outline-info" id="tolist2" onclick="location='beforeRank.jsp'"><font size="5">다음으로</font></button>
 		</div>
 		
 		<script type="text/javascript">
