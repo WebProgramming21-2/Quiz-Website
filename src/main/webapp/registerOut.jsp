@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.io.*" %>
 <html>
-	<title>모드선택</title>
+	<title>회원탈퇴</title>
 	<head>
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -72,15 +72,18 @@
 		<br>
 		
 		<div id="all_inf">
-			<p id="inf" align="center"><font size="7">회원정보</font></p><br><br>
+			<p id="inf" align="center"><font size="7">회원탈퇴</font></p><br><br>
 			
-			<div id="Pid" style="border:1px solid; padding:10px;">
-				<font size="5">ID: <%= session.getAttribute("userID") %> </font>
-			</div><br><br>
-			<div id="Pnick" style="border:1px solid; padding:10px;">
-				<font size="5">Nickname: <%= session.getAttribute("userName") %> </font>
-			</div><br><br>
-			<button type="button" class="btn btn-outline-info" id="out" onclick="location.href='registerOut.jsp'"><font size="5">회원탈퇴</font></button>
+			<form action="registeroutAction.jsp" method="post">
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="아이디를 입력하세요" name="userID">
+				</div><br>
+				<div class="form-group">
+					<input type="password" class="form-control" placeholder="비밀번호를 입력하세요" name="userPassword">
+				</div><br>
+			<input type="submit" class="btn btn-primary form-control" value="탈퇴하기">
+			
+			</form>
 		</div>
 	</body>
 </html>

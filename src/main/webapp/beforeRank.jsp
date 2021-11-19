@@ -76,6 +76,6 @@
 			<h1><font>퀴즈를 무사히 끝마쳤습니다!</font></h1>
 			<h1 align="center"><font>당신의 랭킹을 확인해보세요!</font></h1>
 		</div>
-		<button type="button" class="btn btn-outline-info" id="quiz" onclick="location.href='rankAction.jsp'">랭킹</button>
+		<button type="button" class="btn btn-outline-info" id="quiz" onclick="location.href='ranking.jsp'">랭킹</button>
 	</body>
 </html>

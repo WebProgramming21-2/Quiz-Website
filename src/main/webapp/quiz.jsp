@@ -6,6 +6,20 @@
 <%@ page import="Quiz.*" %>
 <%
 List<QuizDTO> quizList = QuizDAO.getInstance().getQuizList();
+Collections.shuffle(quizList);
+
+int cur = 0;
+int max = 10;
+List<String> contentList = new ArrayList<String>();
+List<String[]> choiceList = new ArrayList<String[]>();
+List<Integer> AnswerList = new ArrayList<Integer>();
+
+for(int i=0; i<max; i++){
+	contentList.add(quizList.get(i).getContent());
+	choiceList.add(quizList.get(i).getChoice());
+	AnswerList.add(quizList.get(i).getAnswer());
+}
+
 %>
 <!DOCTYPE html>
 <html>
@@ -122,6 +136,15 @@ List<QuizDTO> quizList = QuizDAO.getInstance().getQuizList();
 		</div>
 		
 		<script type="text/javascript">
+			var quizNum_cur = 0;
+			var quizNum_max = 5;
+			var quizAry = new Array(quizNum_max);
+			quizAry = getQuizList();
+			var content = [];
+			var choice = [];
+			var answer = [];
+			
+			
 			var correctAnswer = <%=quizList.get(0).getAnswer()%>//정답, 이 부분도 모든 문제에 대체 가능하게 만들 수 있도록 정답list를 만드는 것도 좋을 것임.
 			var delay = 10; // 10초
 			var timer;
@@ -134,6 +157,32 @@ List<QuizDTO> quizList = QuizDAO.getInstance().getQuizList();
 				} else {
 					document.getElementById("card-text").innerHTML="<font color=white><b>땡! 틀렸습니다. 정답은 </b></font>" + correctAnswer + "<font color=white><b>번 입니다.</b></font>";
 					clock = 0; // 틀리면 바로 넘어가도록 하기 위해 0으로 변경
+				}
+			}
+			
+			function getQuizList(){
+				var fullList = <%= quizList %>
+				var returnList = new Array(quizNum_max);
+				for(var i=0; i<quizNum_max; i++){
+					returnList[i] = fullList[i];
+				}
+				return returnList;
+			}
+			
+			function getContent(quizAry){
+				var fullList = <%= quizList %>
+				var tempAry = new Array(quizNum_max);
+				for(var i=0; i<quizNum_max; i++){
+					tempAry[i] = quizAry.map()
+				}
+			}
+			
+			function goNext(){
+				if(quizNum_cur <= quizNum_max){
+					quizNum_cur++;
+				}
+				else{
+					window.location="beforeRAnk.jsp";
 				}
 			}
 		</script>
