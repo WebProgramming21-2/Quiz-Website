@@ -3,8 +3,32 @@
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="java.util.*" %>
 <%@ page import="java.sql.*" %>
+<%@ page import="Member.*" %>
+<%!
+	List<Rank> rank = MemberDAO.getInstance().getRankList();
+
+	// Collections.sort를 사용하기위한 Comparator 객체
+	Comparator<Rank> comparator = new Comparator<Rank>(){
+		@Override
+		public int compare(Rank r1, Rank r2){
+			return r2.getScore() - r1.getScore();
+		}
+	};
+	
+	// 유저의 랭킹
+	public int userRank(String name, List<Rank>rank){ 
+		int ranking = 1;
+		for(int i=0; i<rank.size(); i++){
+			if(rank.get(i).getName().equals(name)){
+				return ranking;
+			}
+			ranking++;
+		}
+		return -1; // 이름을 못찾았다면 오류
+	}
+%>
 <html>
-	<title>모드선택</title>
+	<title>랭킹</title>
 	<head>
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -45,6 +69,13 @@
 			if(session.getAttribute("userID") != null){
 				userID = (String)session.getAttribute("userID");
 			}
+			String userName = null;
+			if(session.getAttribute("userName") != null){
+				userName=(String)session.getAttribute("userName");
+			}
+		%>
+		<%
+			Collections.sort(rank, comparator);
 		%>
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		  <div class="container-fluid">
@@ -82,11 +113,11 @@
 				  </thead>
 				  <tbody>
 					  <%
-					  	for(int i = 0; i < 5; i++) { // 5등정도까지 출력
+					  	for(int i = 0; i < rank.size() && i < 5; i++) { // 5등정도까지 출력
 					  %>
 					    <tr class="table-active">
 					      <th scope="row"><font size="5">No.<%=i+1 %></font></th>
-					      <td><font size="5"><%out.print("유저 닉네임부분"); %></font></td>
+					      <td><font size="5"><%out.print(rank.get(i).getName()); %></font></td>
 					    </tr>
 					  <%
 					    } 
@@ -102,14 +133,13 @@
 				  </thead>
 				  <tbody>
 					    <tr class="table-active">
-					      <th scope="row"><font size="5">No.<%=15 %></font></th>
-					      <td><font size="5"><%out.print("유저 닉네임부분"); %></font></td>
+					      <th scope="row"><font size="5">No.<% out.print(userRank(userName, rank)); %></font></th>
+					      <td><font size="5"><% out.print(userName); %></font></td>
 					    </tr>
 				  </tbody>
 				</table>
 				<button type="button" class="btn btn-outline-info" id="goMain" onclick="location.href='main.jsp'"><font size="5">메인페이지로</font></button>
 			</div>
-			
 		</div>
 	</body>
 </html>

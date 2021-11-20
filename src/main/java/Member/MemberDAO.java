@@ -120,6 +120,32 @@ public class MemberDAO {
 		return false;
 	}
 	
+	public boolean delete(String id, String pw){
+		String sql="SELECT password FROM MEMBER where id = ?";
+		String dbpw="";
+		try{
+			getConnection();
+			prstate = con.prepareStatement(sql);
+			prstate.setString(1, id);
+			result = prstate.executeQuery();
+			if(result.next()){
+				dbpw = result.getString("password");
+				if(dbpw.equals(pw)){
+					String delsql="DELETE FROM MEMBER where id = ?";
+					prstate = con.prepareStatement(delsql);
+					prstate.setString(1, id);
+					prstate.executeUpdate();
+					return true;
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			close();
+		}
+		return false;
+	}
+	
 	public String getName(String id) {
 		String sql = "SELECT name FROM MEMBER where id = ?";
 		
