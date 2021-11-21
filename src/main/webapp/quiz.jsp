@@ -5,20 +5,8 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="Quiz.*" %>
 <%
-List<QuizDTO> quizList = QuizDAO.getInstance().getQuizList();
-Collections.shuffle(quizList);
-
-int cur = 0;
-int max = 10;
-List<String> contentList = new ArrayList<String>();
-List<String[]> choiceList = new ArrayList<String[]>();
-List<Integer> AnswerList = new ArrayList<Integer>();
-
-for(int i=0; i<max; i++){
-	contentList.add(quizList.get(i).getContent());
-	choiceList.add(quizList.get(i).getChoice());
-	AnswerList.add(quizList.get(i).getAnswer());
-}
+List<QuizDTO> quizList = (List<QuizDTO>)session.getAttribute("quizList");
+int num = Integer.parseInt(request.getParameter("num"));
 
 %>
 <!DOCTYPE html>
@@ -34,6 +22,12 @@ for(int i=0; i<max; i++){
 		<script src="http://code.jquery.com/jquery-1.10.1.js"></script>
 		<link href="resources/css/bootstrap.css" rel="stylesheet">
 		<style type="text/css">
+			.row0 {
+				position: absolute;
+				top: 30%;
+				left: 50%;
+				transform: translate(-50%, -150%);
+			}
 			.row1 {
 				position: absolute;
 				top: 30%;
@@ -78,6 +72,13 @@ for(int i=0; i<max; i++){
 			if(session.getAttribute("userID") != null){
 				userID = (String)session.getAttribute("userID");
 			}
+			
+			// 최대 문제 개수를 넘으면 beforeRank로 넘어감
+			if (num >= 10) {
+				script.println("<script>");
+				script.println("location.href='beforeRank.jsp?score=" + request.getParameter("score") + "'");
+				script.println("</script>");
+			} else {
 		%>
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		  <div class="container-fluid">
@@ -107,12 +108,18 @@ for(int i=0; i<max; i++){
 		
 		<div class="container">
 			<%--여기부터 문제가 나오는 박스 부분. 이 박스 안에서 문제를 계속 갈아줘야함.문제가 보이는 화면을 예시로 들기 위해 문제 1번을 가져와봤음.--%>
-			<div class="row1">
+			<div class="row0">
 				<div class="card text-white bg-info mb-3" style="max-width: 40rem;">
-				  <div class="card-header"><font size="5">남은시간 : <b><span id="timeLeft"></span></b> 초</font></div>
+			  	<div class="card-header"><font size="5"><b><span id="score">현재 점수 : <%= request.getParameter("score") %> 점</span></b></font></div>
+			  </div>
+			</div>
+			<div class="row1">
+				<br>
+				<div class="card text-white bg-info mb-3" style="max-width: 40rem;">
+				  <div class="card-header"><font size="5"><b><span id="leftTime">남은시간 : 10 초</span></b></font></div>
 				  <div class="card-body">
 				    <h4 class="card-title"></h4>
-				    <h4 class="card-text" id="card-text"><font><%= quizList.get(0).getContent() %></font></h4>
+				    <h4 class="card-text" id="card-text"><font><%= quizList.get(num).getContent() %></font></h4>
 				  </div>
 				</div>
 			</div>
@@ -122,69 +129,60 @@ for(int i=0; i<max; i++){
 					<%
 						for (int i = 0; i < 4; i++) {
 					%>
-					<button class="btn btn-lg btn-primary" type="button" onclick="check_answer(<%=i+1 %>)"><font><%=i+1 %> <%=": " %> <%=quizList.get(0).getChoice()[i] %></font></button>
+					<button class="btn btn-lg btn-primary" type="button" onclick="check_answer(<%=i+1 %>)"><font><%=i+1 %> <%=": " %> <%=quizList.get(num).getChoice()[i] %></font></button>
 				  	<%
 						}
 				  	%>
 				</div>
 			</div>
 			<%--이 버튼을 누르면 예를 들어 quizList.get(i)부분의 i 부분을 ++시킨다거나 해서 문제를 넘겨줘야 할 것임. onclick에 해당 내용을 작성하면 좋을 듯함.--%>
-			<button type="button" class="btn btn-outline-info" id="tolist1" onclick=""><font size="5">다음으로</font></button>
-			<%--참고:아래 버튼은 동작참고용이고, 위버튼 하나에서 해결하면 좋을 듯 합니다.
-			퀴즈 목록이 끝나면 위 버튼은 아래버튼의 동작처럼 beforeRank.jsp로 이동하는 버튼이 되어야함. 아니면 퀴즈목록 길이를 측정해서 if-else문으로 상황에 따라 버튼을 바꿔주는 방법도 있음. --%>
-			<button type="button" class="btn btn-outline-info" id="tolist2" onclick="location='beforeRank.jsp'"><font size="5">다음으로</font></button>
+			<button type="button" class="btn btn-outline-info" id="tolist1" onclick="goNext()"><font size="5">다음으로</font></button>
 		</div>
 		
 		<script type="text/javascript">
-			var quizNum_cur = 0;
-			var quizNum_max = 5;
-			var quizAry = new Array(quizNum_max);
-			quizAry = getQuizList();
-			var content = [];
-			var choice = [];
-			var answer = [];
+			var isSelect = false;
+			var correctAnswer = <%=quizList.get(num).getAnswer()%>//정답, 이 부분도 모든 문제에 대체 가능하게 만들 수 있도록 정답list를 만드는 것도 좋을 것임.
+			var leftTime = 10; // 10초
 			
+			function timerCallback() {
+				$("#leftTime").text("남은시간 : " + leftTime + " 초");
+				leftTime--;
+				
+				if (leftTime <= -2) { // 왜인지 2초 일찍 끝나서 일단 이렇게 해놓음
+					clearInterval(timer);
+					$("#leftTime").text("시간 초과");
+				}
+			}
+			// 처음 시작 시 1초 지연을 막기 위해 이런 구조로 함수 작성
+			function startInterval(callback) {
+				callback();
+				return setInterval(callback, 1000);
+			}
 			
-			var correctAnswer = <%=quizList.get(0).getAnswer()%>//정답, 이 부분도 모든 문제에 대체 가능하게 만들 수 있도록 정답list를 만드는 것도 좋을 것임.
-			var delay = 10; // 10초
-			var timer;
-			var clock = delay; // 타이머.
-			var score = 0; // 문제를 맞출 때마다 값을 더해줘서 최종점수를 개인 ID db에 스코어를 저장해야할 것.
+			var timer = startInterval(timerCallback);
+			var score = <%= request.getParameter("score") %>; // 문제를 맞출 때마다 값을 더해줘서 최종점수를 개인 ID db에 스코어를 저장해야할 것.
 	
 			function check_answer(answer){
-				if (correctAnswer==answer){
-					document.getElementById("card-text").innerHTML="<font color=white><b>정답입니다.</b></font>";
-				} else {
-					document.getElementById("card-text").innerHTML="<font color=white><b>땡! 틀렸습니다. 정답은 </b></font>" + correctAnswer + "<font color=white><b>번 입니다.</b></font>";
-					clock = 0; // 틀리면 바로 넘어가도록 하기 위해 0으로 변경
+				// 아직 선택하지 않은 경우만 텍스트 변경
+				if (!isSelect) {
+					if (correctAnswer==answer){
+						document.getElementById("card-text").innerHTML="<font color=white><b>정답입니다.</b></font>";
+						score += leftTime+1; // 현재 남은 시간을 점수로 함, 남은시간 초 수랑 1 차이나서 더해줌
+						$("#score").text("현재 점수 : " + score + " 점");
+					} else {
+						document.getElementById("card-text").innerHTML="<font color=white><b>땡! 틀렸습니다. 정답은 </b></font>" + correctAnswer + "<font color=white><b>번 입니다.</b></font>";
+						clock = 0; // 틀리면 바로 넘어가도록 하기 위해 0으로 변경
+					}
+					isSelect = true;
+					clearInterval(timer); // 타이머 중지
 				}
-			}
-			
-			function getQuizList(){
-				var fullList = <%= quizList %>
-				var returnList = new Array(quizNum_max);
-				for(var i=0; i<quizNum_max; i++){
-					returnList[i] = fullList[i];
-				}
-				return returnList;
-			}
-			
-			function getContent(quizAry){
-				var fullList = <%= quizList %>
-				var tempAry = new Array(quizNum_max);
-				for(var i=0; i<quizNum_max; i++){
-					tempAry[i] = quizAry.map()
-				}
+				
 			}
 			
 			function goNext(){
-				if(quizNum_cur <= quizNum_max){
-					quizNum_cur++;
-				}
-				else{
-					window.location="beforeRAnk.jsp";
-				}
+				window.location = "quiz.jsp?num=<%=num+1%>&score=" + score;
 			}
 		</script>
+		<% } %>
 	</body>
 </html>

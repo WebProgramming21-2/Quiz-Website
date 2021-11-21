@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.io.*" %>
+<%@ page import="Member.*" %>
 <html>
 	<title>quiz</title>
 	<head>
@@ -46,6 +47,9 @@
 			String userID = null;
 			if(session.getAttribute("userID") != null){
 				userID = (String)session.getAttribute("userID");
+				
+				// 점수 갱신
+				MemberDAO.getInstance().setScore(userID, Integer.parseInt(request.getParameter("score")));
 			}
 		%>
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">

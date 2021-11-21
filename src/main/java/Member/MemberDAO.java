@@ -80,25 +80,6 @@ public class MemberDAO {
 		return false;
 	}
 	
-	public boolean withdraw(String id) {
-		if (checkId(id)) {
-			String sql = "DELETE FROM MEMBER where id = ?";
-			
-			try {
-				getConnection();
-				prstate = con.prepareStatement(sql);
-				prstate.setString(1, id);
-				prstate.executeUpdate();
-				return true;
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				close();
-			}
-		}
-		return false;
-	}
-	
 	public boolean login(MemberDTO member) {
 		String sql = "SELECT password FROM MEMBER where id = ?";
 		
