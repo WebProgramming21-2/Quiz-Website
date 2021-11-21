@@ -5,16 +5,6 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="Member.*" %>
 <%!
-	List<Rank> rank = MemberDAO.getInstance().getRankList();
-
-	// Collections.sort를 사용하기위한 Comparator 객체
-	Comparator<Rank> comparator = new Comparator<Rank>(){
-		@Override
-		public int compare(Rank r1, Rank r2){
-			return r2.getScore() - r1.getScore();
-		}
-	};
-	
 	// 유저의 랭킹
 	public int userRank(String name, List<Rank>rank){ 
 		int ranking = 1;
@@ -36,6 +26,10 @@
 			}
 			return -1; // 이름을 못찾았다면 오류
 		}
+%>
+<%
+// 선언문에 쓰게 되면 갱신이 안되므로 분리
+List<Rank> rank = MemberDAO.getInstance().getRankList();
 %>
 <html>
 	<title>랭킹</title>
@@ -83,9 +77,6 @@
 			if(session.getAttribute("userName") != null){
 				userName=(String)session.getAttribute("userName");
 			}
-		%>
-		<%
-			Collections.sort(rank, comparator);
 		%>
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		  <div class="container-fluid">

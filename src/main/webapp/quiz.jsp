@@ -73,10 +73,10 @@ int num = Integer.parseInt(request.getParameter("num"));
 				userID = (String)session.getAttribute("userID");
 			}
 			
-			// 최대 문제 개수를 넘으면 ranking으로 넘어감
+			// 최대 문제 개수를 넘으면 beforeRank로 넘어감
 			if (num >= 10) {
 				script.println("<script>");
-				script.println("location.href='beforeRank.jsp'");
+				script.println("location.href='beforeRank.jsp?score=" + request.getParameter("score") + "'");
 				script.println("</script>");
 			} else {
 		%>
@@ -137,27 +137,9 @@ int num = Integer.parseInt(request.getParameter("num"));
 			</div>
 			<%--이 버튼을 누르면 예를 들어 quizList.get(i)부분의 i 부분을 ++시킨다거나 해서 문제를 넘겨줘야 할 것임. onclick에 해당 내용을 작성하면 좋을 듯함.--%>
 			<button type="button" class="btn btn-outline-info" id="tolist1" onclick="goNext()"><font size="5">다음으로</font></button>
-			<%--참고:아래 버튼은 동작참고용이고, 위버튼 하나에서 해결하면 좋을 듯 합니다.
-			퀴즈 목록이 끝나면 위 버튼은 아래버튼의 동작처럼 beforeRank.jsp로 이동하는 버튼이 되어야함. 아니면 퀴즈목록 길이를 측정해서 if-else문으로 상황에 따라 버튼을 바꿔주는 방법도 있음. --%>
-			<button type="button" class="btn btn-outline-info" id="tolist2" onclick="location='beforeRank.jsp'"><font size="5">다음으로</font></button>
 		</div>
 		
 		<script type="text/javascript">
-			/*
-			var quizNum_cur = 0;
-			var quizNum_max = 5;
-			var quizAry = new Array(quizNum_max);
-			quizAry = getQuizList();
-			var content = [];
-			var choice = [];
-			var answer = [];
-			
-			
-			$(document).ready(function() {
-				
-			});
-			*/
-			
 			var isSelect = false;
 			var correctAnswer = <%=quizList.get(num).getAnswer()%>//정답, 이 부분도 모든 문제에 대체 가능하게 만들 수 있도록 정답list를 만드는 것도 좋을 것임.
 			var leftTime = 10; // 10초
@@ -171,6 +153,7 @@ int num = Integer.parseInt(request.getParameter("num"));
 					$("#leftTime").text("시간 초과");
 				}
 			}
+			// 처음 시작 시 1초 지연을 막기 위해 이런 구조로 함수 작성
 			function startInterval(callback) {
 				callback();
 				return setInterval(callback, 1000);
@@ -191,7 +174,7 @@ int num = Integer.parseInt(request.getParameter("num"));
 						clock = 0; // 틀리면 바로 넘어가도록 하기 위해 0으로 변경
 					}
 					isSelect = true;
-					clearInterval(timer);
+					clearInterval(timer); // 타이머 중지
 				}
 				
 			}
@@ -199,27 +182,6 @@ int num = Integer.parseInt(request.getParameter("num"));
 			function goNext(){
 				window.location = "quiz.jsp?num=<%=num+1%>&score=" + score;
 			}
-			
-			/*
-			function getQuizList(){
-				var fullList = <%= quizList %>
-				var returnList = new Array(quizNum_max);
-				for(var i=0; i<quizNum_max; i++){
-					returnList[i] = fullList[i];
-				}
-				return returnList;
-			}
-			
-			function getContent(quizAry){
-				var fullList = <%= quizList %>
-				var tempAry = new Array(quizNum_max);
-				for(var i=0; i<quizNum_max; i++){
-					tempAry[i] = quizAry.map()
-				}
-			}
-			
-			
-			*/
 		</script>
 		<% } %>
 	</body>
