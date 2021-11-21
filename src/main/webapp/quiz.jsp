@@ -22,6 +22,12 @@ int num = Integer.parseInt(request.getParameter("num"));
 		<script src="http://code.jquery.com/jquery-1.10.1.js"></script>
 		<link href="resources/css/bootstrap.css" rel="stylesheet">
 		<style type="text/css">
+			.row0 {
+				position: absolute;
+				top: 30%;
+				left: 50%;
+				transform: translate(-50%, -150%);
+			}
 			.row1 {
 				position: absolute;
 				top: 30%;
@@ -102,9 +108,15 @@ int num = Integer.parseInt(request.getParameter("num"));
 		
 		<div class="container">
 			<%--여기부터 문제가 나오는 박스 부분. 이 박스 안에서 문제를 계속 갈아줘야함.문제가 보이는 화면을 예시로 들기 위해 문제 1번을 가져와봤음.--%>
-			<div class="row1">
+			<div class="row0">
 				<div class="card text-white bg-info mb-3" style="max-width: 40rem;">
-				  <div class="card-header"><font size="5">남은시간 : <b><span id="timeLeft"></span></b> 초</font></div>
+			  	<div class="card-header"><font size="5"><b><span id="score">현재 점수 : <%= request.getParameter("score") %> 점</span></b></font></div>
+			  </div>
+			</div>
+			<div class="row1">
+				<br>
+				<div class="card text-white bg-info mb-3" style="max-width: 40rem;">
+				  <div class="card-header"><font size="5"><b><span id="leftTime">남은시간 : 10 초</span></b></font></div>
 				  <div class="card-body">
 				    <h4 class="card-title"></h4>
 				    <h4 class="card-text" id="card-text"><font><%= quizList.get(num).getContent() %></font></h4>
@@ -124,7 +136,7 @@ int num = Integer.parseInt(request.getParameter("num"));
 				</div>
 			</div>
 			<%--이 버튼을 누르면 예를 들어 quizList.get(i)부분의 i 부분을 ++시킨다거나 해서 문제를 넘겨줘야 할 것임. onclick에 해당 내용을 작성하면 좋을 듯함.--%>
-			<button type="button" class="btn btn-outline-info" id="tolist1" onclick="location.href='quiz.jsp?num=<%=num+1%>'"><font size="5">다음으로</font></button>
+			<button type="button" class="btn btn-outline-info" id="tolist1" onclick="goNext()"><font size="5">다음으로</font></button>
 			<%--참고:아래 버튼은 동작참고용이고, 위버튼 하나에서 해결하면 좋을 듯 합니다.
 			퀴즈 목록이 끝나면 위 버튼은 아래버튼의 동작처럼 beforeRank.jsp로 이동하는 버튼이 되어야함. 아니면 퀴즈목록 길이를 측정해서 if-else문으로 상황에 따라 버튼을 바꿔주는 방법도 있음. --%>
 			<button type="button" class="btn btn-outline-info" id="tolist2" onclick="location='beforeRank.jsp'"><font size="5">다음으로</font></button>
@@ -139,27 +151,53 @@ int num = Integer.parseInt(request.getParameter("num"));
 			var content = [];
 			var choice = [];
 			var answer = [];
+			
+			
+			$(document).ready(function() {
+				
+			});
 			*/
 			
 			var isSelect = false;
 			var correctAnswer = <%=quizList.get(num).getAnswer()%>//정답, 이 부분도 모든 문제에 대체 가능하게 만들 수 있도록 정답list를 만드는 것도 좋을 것임.
-			var delay = 10; // 10초
-			var timer;
-			var clock = delay; // 타이머.
-			var score = 0; // 문제를 맞출 때마다 값을 더해줘서 최종점수를 개인 ID db에 스코어를 저장해야할 것.
+			var leftTime = 10; // 10초
+			
+			function timerCallback() {
+				$("#leftTime").text("남은시간 : " + leftTime + " 초");
+				leftTime--;
+				
+				if (leftTime <= -2) { // 왜인지 2초 일찍 끝나서 일단 이렇게 해놓음
+					clearInterval(timer);
+					$("#leftTime").text("시간 초과");
+				}
+			}
+			function startInterval(callback) {
+				callback();
+				return setInterval(callback, 1000);
+			}
+			
+			var timer = startInterval(timerCallback);
+			var score = <%= request.getParameter("score") %>; // 문제를 맞출 때마다 값을 더해줘서 최종점수를 개인 ID db에 스코어를 저장해야할 것.
 	
 			function check_answer(answer){
 				// 아직 선택하지 않은 경우만 텍스트 변경
 				if (!isSelect) {
 					if (correctAnswer==answer){
 						document.getElementById("card-text").innerHTML="<font color=white><b>정답입니다.</b></font>";
+						score += leftTime+1; // 현재 남은 시간을 점수로 함, 남은시간 초 수랑 1 차이나서 더해줌
+						$("#score").text("현재 점수 : " + score + " 점");
 					} else {
 						document.getElementById("card-text").innerHTML="<font color=white><b>땡! 틀렸습니다. 정답은 </b></font>" + correctAnswer + "<font color=white><b>번 입니다.</b></font>";
 						clock = 0; // 틀리면 바로 넘어가도록 하기 위해 0으로 변경
-						isWrong = true;
 					}
+					isSelect = true;
+					clearInterval(timer);
 				}
 				
+			}
+			
+			function goNext(){
+				window.location = "quiz.jsp?num=<%=num+1%>&score=" + score;
 			}
 			
 			/*
@@ -180,14 +218,7 @@ int num = Integer.parseInt(request.getParameter("num"));
 				}
 			}
 			
-			function goNext(){
-				if(quizNum_cur <= quizNum_max){
-					quizNum_cur++;
-				}
-				else{
-					window.location="beforeRAnk.jsp";
-				}
-			}
+			
 			*/
 		</script>
 		<% } %>
