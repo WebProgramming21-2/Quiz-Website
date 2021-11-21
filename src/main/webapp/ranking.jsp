@@ -26,6 +26,16 @@
 		}
 		return -1; // 이름을 못찾았다면 오류
 	}
+	
+	// 유저의 점수
+		public int userScore(String name, List<Rank>rank){ 
+			for(int i=0; i<rank.size(); i++){
+				if(rank.get(i).getName().equals(name)){
+					return rank.get(i).getScore();
+				}
+			}
+			return -1; // 이름을 못찾았다면 오류
+		}
 %>
 <html>
 	<title>랭킹</title>
@@ -108,6 +118,7 @@
 				  <thead>
 				    <tr>
 				      <th scope="col"><font size="6">등수</font></th>
+				      <th scope="col"><font size="6">점수</font></th>
 				      <th scope="col"><font size="6">유저</font></th>
 				    </tr>
 				  </thead>
@@ -117,7 +128,8 @@
 					  %>
 					    <tr class="table-active">
 					      <th scope="row"><font size="5">No.<%=i+1 %></font></th>
-					      <td><font size="5"><%out.print(rank.get(i).getName()); %></font></td>
+					      <th scope="row"><font size="5"><%= rank.get(i).getScore() %> 점</font></th>
+					      <td><font size="5"><%= rank.get(i).getName() %></font></td>
 					    </tr>
 					  <%
 					    } 
@@ -133,8 +145,9 @@
 				  </thead>
 				  <tbody>
 					    <tr class="table-active">
-					      <th scope="row"><font size="5">No.<% out.print(userRank(userName, rank)); %></font></th>
-					      <td><font size="5"><% out.print(userName); %></font></td>
+					      <th scope="row"><font size="5">No.<%= userRank(userName, rank) %></font></th>
+					      <th scope="row"><font size="5"><%= userScore(userName, rank) %> 점</font></th>
+					      <td><font size="5"><%= userName %></font></td>
 					    </tr>
 				  </tbody>
 				</table>
