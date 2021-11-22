@@ -68,9 +68,9 @@ int num = Integer.parseInt(request.getParameter("num"));
 				script.println("</script>");
 			}
 			// 메인 페이지로 이동했을 때 세션에 값이 담겨있는지 체크
-			String userID = null;
-			if(session.getAttribute("userID") != null){
-				userID = (String)session.getAttribute("userID");
+			String userName = null;
+			if(session.getAttribute("userName") != null){
+				userName = (String)session.getAttribute("userName");
 			}
 			
 			// 최대 문제 개수를 넘으면 beforeRank로 넘어감
@@ -96,7 +96,7 @@ int num = Integer.parseInt(request.getParameter("num"));
 		          <a class="nav-link active" href="quizStart.jsp"><font size="4">퀴즈모드</font></a>
 		        </li>
 		        <li class="nav-item">
-		            <a class="nav-link active" href="mypage.jsp"><font size="4"><%=userID %></font></a>
+		            <a class="nav-link active" href="mypage.jsp"><font size="4"><%=userName %></font></a>
 		        </li>
 		        <li class="nav-item">
 		            <a class="nav-link active" href="logoutAction.jsp"><font size="4">로그아웃</font></a>

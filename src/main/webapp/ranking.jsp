@@ -93,7 +93,7 @@ List<Rank> rank = MemberDAO.getInstance().getRankList();
 		          </a>
 		        </li>
 		        <li class="nav-item">
-		            <a class="nav-link active" href="mypage.jsp"><font size="4"><%=userID %></font></a>
+		            <a class="nav-link active" href="mypage.jsp"><font size="4"><%=userName %></font></a>
 		        </li>
 		        <li class="nav-item">
 		            <a class="nav-link active" href="logoutAction.jsp"><font size="4">로그아웃</font></a>

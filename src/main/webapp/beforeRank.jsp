@@ -45,11 +45,15 @@
 			}
 			// 메인 페이지로 이동했을 때 세션에 값이 담겨있는지 체크
 			String userID = null;
+			String userName = null;
 			if(session.getAttribute("userID") != null){
 				userID = (String)session.getAttribute("userID");
 				
 				// 점수 갱신
 				MemberDAO.getInstance().setScore(userID, Integer.parseInt(request.getParameter("score")));
+			}
+			if(session.getAttribute("userName") != null){
+				userName = (String)session.getAttribute("userName");
 			}
 		%>
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -67,7 +71,7 @@
 		          </a>
 		        </li>
 		       <li class="nav-item">
-		            <a class="nav-link active" href="mypage.jsp"><font size="4"><%=userID %></font></a>
+		            <a class="nav-link active" href="mypage.jsp"><font size="4"><%=userName %></font></a>
 		        </li>
 		        <li class="nav-item">
 		            <a class="nav-link active" href="logoutAction.jsp"><font size="4">로그아웃</font></a>
