@@ -3,10 +3,10 @@ package Member;
 public class Rank {
 	String id;
 	String name;
-	int score;
+	float score;
 	
 	public Rank() {}
-	public Rank(String id, String name, int score) {
+	public Rank(String id, String name, float score) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -24,10 +24,10 @@ public class Rank {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getScore() {
+	public float getScore() {
 		return score;
 	}
-	public void setScore(int score) {
+	public void setScore(float score) {
 		this.score = score;
 	}
 }

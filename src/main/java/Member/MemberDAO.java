@@ -148,14 +148,37 @@ public class MemberDAO {
 		return null;
 	}
 	
-	public void setScore(String id, int score) {
+	public float getScore(String id){
+		if (checkId(id)) {
+			String sql = "SELECT score FROM MEMBER where id = ?";
+			
+			try {
+				getConnection();
+				prstate = con.prepareStatement(sql);
+				prstate.setString(1, id);
+				result = prstate.executeQuery();
+				
+				if (result.next()) {
+					return result.getInt(1);
+				}
+				return -2;
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				close();
+			}
+		}
+		return -2;
+	}
+	
+	public void setScore(String id, float score) {
 		if (checkId(id)) {
 			String sql = "UPDATE MEMBER SET score = ? where id = ?";
 			
 			try {
 				getConnection();
 				prstate = con.prepareStatement(sql);
-				prstate.setInt(1, score);
+				prstate.setFloat(1, score);
 				prstate.setString(2, id);
 				prstate.executeUpdate();
 				
@@ -176,11 +199,11 @@ public class MemberDAO {
 			String sql = "SELECT * FROM MEMBER ORDER BY score DESC";
 			result = state.executeQuery(sql);
 			while (result.next()) {
-				if (result.getInt("score") < 0) break;
+				if (result.getFloat("score") < 0) break;
 				Rank rank = new Rank();
 				rank.setId(result.getString("id"));
 				rank.setName(result.getString("name"));
-				rank.setScore(result.getInt("score"));
+				rank.setScore(result.getFloat("score"));
 				
 				ret.add(rank);
 			}

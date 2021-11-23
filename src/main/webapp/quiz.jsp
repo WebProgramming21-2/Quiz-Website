@@ -75,8 +75,9 @@ int num = Integer.parseInt(request.getParameter("num"));
 			
 			// 최대 문제 개수를 넘으면 beforeRank로 넘어감
 			if (num >= 10) {
+				
 				script.println("<script>");
-				script.println("location.href='beforeRank.jsp?score=" + request.getParameter("score") + "'");
+				script.println("location.href='beforeRank.jsp?score=" + Float.parseFloat(request.getParameter("score")) + "'");
 				script.println("</script>");
 			} else {
 		%>
@@ -146,7 +147,7 @@ int num = Integer.parseInt(request.getParameter("num"));
 			
 			function timerCallback() {
 				$("#leftTime").text("남은시간 : " + leftTime + " 초");
-				leftTime--;
+				leftTime = +(leftTime-0.1).toFixed(1); // 타이머 세는 단위를 0.1초
 				
 				if (leftTime <= -2) { // 왜인지 2초 일찍 끝나서 일단 이렇게 해놓음
 					clearInterval(timer);
@@ -160,14 +161,19 @@ int num = Integer.parseInt(request.getParameter("num"));
 			}
 			
 			var timer = startInterval(timerCallback);
-			var score = <%= request.getParameter("score") %>; // 문제를 맞출 때마다 값을 더해줘서 최종점수를 개인 ID db에 스코어를 저장해야할 것.
+			var score = <%= Float.parseFloat(request.getParameter("score")) %>; // 문제를 맞출 때마다 값을 더해줘서 최종점수를 개인 ID db에 스코어를 저장해야할 것.
 	
+			function calcScore(){
+				var temp_score = +((5 * Math.cos((1/10) * (10-leftTime) * Math.PI)) + 5).toFixed(2);
+				return temp_score;
+			}
+			
 			function check_answer(answer){
 				// 아직 선택하지 않은 경우만 텍스트 변경
 				if (!isSelect) {
 					if (correctAnswer==answer){
 						document.getElementById("card-text").innerHTML="<font color=white><b>정답입니다.</b></font>";
-						score += leftTime+1; // 현재 남은 시간을 점수로 함, 남은시간 초 수랑 1 차이나서 더해줌
+						score += calcScore(); // 현재 남은 시간을 점수로 함, 남은시간 초 수랑 1 차이나서 더해줌
 						$("#score").text("현재 점수 : " + score + " 점");
 					} else {
 						document.getElementById("card-text").innerHTML="<font color=white><b>땡! 틀렸습니다. 정답은 </b></font>" + correctAnswer + "<font color=white><b>번 입니다.</b></font>";
@@ -182,6 +188,7 @@ int num = Integer.parseInt(request.getParameter("num"));
 			function goNext(){
 				window.location = "quiz.jsp?num=<%=num+1%>&score=" + score;
 			}
+			
 		</script>
 		<% } %>
 	</body>

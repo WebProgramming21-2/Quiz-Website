@@ -17,9 +17,9 @@
 		<%
 		try{
 			PrintWriter script = response.getWriter();
-			String user_id = request.getParameter("userID");
+			String user_id = (String)session.getAttribute("userID");
 			String user_pw = request.getParameter("userPassword");
-			if(user_id == "" || user_pw == ""){
+			if(user_pw == ""){
 				script.println("<script>");
 				script.println("alert('입력되지 않은 사항이 있습니다.')");
 				script.println("location.href='index.jsp'");

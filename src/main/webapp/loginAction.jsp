@@ -4,7 +4,6 @@
 <%@page import="Member.MemberDAO"%>
 <%@page import="Member.MemberDTO"%>
 <% request.setCharacterEncoding("UTF-8"); %>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -36,8 +35,9 @@
 		
 			if(res_login){ // 로그인 성공 -> main.jsp로 이동
 				session.setAttribute("userID", user_id);
-				session.setAttribute("userPW", user_pw);
 				session.setAttribute("userName", dao.getName(user_id));
+				session.setAttribute("userScore", dao.getName(user_id));
+				
 				session.setAttribute("login", "login");
 				script.println("<script>");
 				script.println("location.href='main.jsp'");

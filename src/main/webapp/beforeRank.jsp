@@ -50,7 +50,10 @@
 				userID = (String)session.getAttribute("userID");
 				
 				// 점수 갱신
-				MemberDAO.getInstance().setScore(userID, Integer.parseInt(request.getParameter("score")));
+				if(request.getParameter("score") != null){
+					MemberDAO.getInstance().setScore(userID, Float.parseFloat(request.getParameter("score")));
+					
+				}
 			}
 			if(session.getAttribute("userName") != null){
 				userName = (String)session.getAttribute("userName");

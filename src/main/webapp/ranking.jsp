@@ -18,14 +18,14 @@
 	}
 	
 	// 유저의 점수
-		public int userScore(String name, List<Rank>rank){ 
-			for(int i=0; i<rank.size(); i++){
-				if(rank.get(i).getName().equals(name)){
-					return rank.get(i).getScore();
-				}
+	public float userScore(String name, List<Rank>rank){ 
+		for(int i=0; i<rank.size(); i++){
+			if(rank.get(i).getName().equals(name)){
+				return rank.get(i).getScore();
 			}
-			return -1; // 이름을 못찾았다면 오류
 		}
+		return -1; // 이름을 못찾았다면 오류
+	}
 %>
 <%
 // 선언문에 쓰게 되면 갱신이 안되므로 분리

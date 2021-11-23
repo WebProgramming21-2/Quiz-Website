@@ -76,9 +76,6 @@
 			
 			<form action="registeroutAction.jsp" method="post">
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="아이디를 입력하세요" name="userID">
-				</div><br>
-				<div class="form-group">
 					<input type="password" class="form-control" placeholder="비밀번호를 입력하세요" name="userPassword">
 				</div><br>
 			<input type="submit" class="btn btn-primary form-control" value="탈퇴하기">
