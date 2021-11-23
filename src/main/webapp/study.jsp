@@ -25,7 +25,7 @@ List<QuizDTO> quizList = QuizDAO.getInstance().getQuizList();
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
-		<script src="http://code.jquery.com/jquery-1.10.1.js"></script>
+		<script src="https://code.jquery.com/jquery-1.10.1.js"></script>
 		<link href="resources/css/bootstrap.css" rel="stylesheet">
 		<style type="text/css">
 			.row1 {
