@@ -111,10 +111,10 @@ List<Rank> rank = MemberDAO.getInstance().getRankList();
 				<font size="5">Nickname: <%= userName %> </font>
 			</div><br><br>
 			<div id="Pnick" style="border:1px solid; padding:10px;">
-				<font size="5">Score: <%= userScore(userID, rank) %> </font>
+				<font size="5">Score: <%= userScore(userName, rank) %> </font>
 			</div><br><br>
 			<div id="Pnick" style="border:1px solid; padding:10px;">
-				<font size="5">Ranking: <%= userRank(userID, rank) %> </font>
+				<font size="5">Ranking: <%= userRank(userName, rank) %> </font>
 			</div><br><br>
 			<button type="button" class="btn btn-outline-info" id="out" onclick="location.href='registerOut.jsp'"><font size="5">회원탈퇴</font></button>
 		</div>

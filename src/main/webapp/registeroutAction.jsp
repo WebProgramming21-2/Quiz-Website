@@ -38,7 +38,7 @@
 				else{
 					script.println("<script>");
 					script.println("alert('회원 탈퇴 실패.')");
-					script.println("location.href='index.jsp'");
+					script.println("location.href='mypage.jsp'");
 					script.println("</script>");
 				}
 			}

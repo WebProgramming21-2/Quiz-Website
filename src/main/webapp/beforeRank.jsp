@@ -3,7 +3,7 @@
 <%@ page import="java.io.*" %>
 <%@ page import="Member.*" %>
 <html>
-	<title>quiz</title>
+	<title>beforeRank</title>
 	<head>
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
