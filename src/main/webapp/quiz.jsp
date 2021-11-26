@@ -75,9 +75,7 @@ int num = Integer.parseInt(request.getParameter("num"));
 			
 			// 최대 문제 개수를 넘으면 beforeRank로 넘어감
 			if (num >= 10) {
-				script.println("<script>");
-				script.println("location.href='beforeRank.jsp?score=" + request.getParameter("score") + "'");
-				script.println("</script>");
+				;
 			} else {
 		%>
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -160,8 +158,9 @@ int num = Integer.parseInt(request.getParameter("num"));
 			}
 			
 			var timer = startInterval(timerCallback);
-			var score = <%= request.getParameter("score") %>; // 문제를 맞출 때마다 값을 더해줘서 최종점수를 개인 ID db에 스코어를 저장해야할 것.
-	
+			var score = parseInt(sessionStorage.getItem("score"));
+			$("#score").text("현재 점수 : " + score + " 점");
+			
 			function check_answer(answer){
 				// 아직 선택하지 않은 경우만 텍스트 변경
 				if (!isSelect) {
@@ -180,7 +179,13 @@ int num = Integer.parseInt(request.getParameter("num"));
 			}
 			
 			function goNext(){
-				window.location = "quiz.jsp?num=<%=num+1%>&score=" + score;
+				if(<%= num %> + 1 == 10 ){
+					window.location = "beforeRank.jsp?score=" + score;
+				}
+				else{
+					sessionStorage.setItem("score", score);
+					window.location = "quiz.jsp?num=<%=num+1%>";
+				}
 			}
 		</script>
 		<% } %>

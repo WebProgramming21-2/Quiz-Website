@@ -95,6 +95,15 @@ session.setAttribute("quizList", quizList);
 			<h1><font>준비되면 시작 버튼을 눌러 퀴즈를 시작하세요!</font></h1>
 			<h1 align="center"><font>각 퀴즈 당 제한시간은 10초 입니다.</font></h1>
 		</div>
-		<button type="button" class="btn btn-outline-info" id="quiz" onclick="location.href='quiz.jsp?num=<%=num%>&score=0'">시작</button>
+		<button type="button" class="btn btn-outline-info" id="quiz" onclick="goQuiz()">시작</button>
+	
+		<script type="text/javascript">
+			var score = 0;
+			
+			function goQuiz(){
+				sessionStorage.setItem("score", "0");
+				window.location = "quiz.jsp?num=0";
+			}
+		</script>
 	</body>
 </html>

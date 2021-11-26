@@ -17,9 +17,10 @@
 		<%
 		try{
 			PrintWriter script = response.getWriter();
-			String user_id = request.getParameter("userID");
+			// id는 세션에서, pw는 registerOut에서
+			String user_id = (String)session.getAttribute("userID");
 			String user_pw = request.getParameter("userPassword");
-			if(user_id == "" || user_pw == ""){
+			if(user_pw == ""){ // 공란 체크
 				script.println("<script>");
 				script.println("alert('입력되지 않은 사항이 있습니다.')");
 				script.println("location.href='index.jsp'");
@@ -27,7 +28,7 @@
 			}
 			else{
 				MemberDAO dao = MemberDAO.getInstance();
-				boolean res = dao.delete(user_id, user_pw);
+				boolean res = dao.delete(user_id, user_pw); // DAO의 delete 메소드 실행
 				if(res){
 					script.println("<script>");
 					script.println("alert('회원 탈퇴 완료')");
