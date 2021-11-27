@@ -36,9 +36,9 @@ List<QuizDTO> quizList = QuizDAO.getInstance().getQuizList();
 			}
 			.row2 {
 				position: absolute;
-				top: 70%;
+				top: 76%;
 				left: 50%;
-				transform: translate(-50%, -70%);
+				transform: translate(-50%, -76%);
 			}
 			#tolist {
 				position: absolute;

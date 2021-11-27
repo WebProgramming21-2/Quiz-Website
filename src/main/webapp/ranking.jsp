@@ -132,6 +132,8 @@ List<Rank> rank = MemberDAO.getInstance().getRankList();
 				  <thead>
 				    <tr>
 				      <th scope="col"><font size="6">MY</font></th>
+				      <th></th>
+				      <th></th>
 				    </tr>
 				  </thead>
 				  <tbody>
