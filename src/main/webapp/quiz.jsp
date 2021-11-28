@@ -145,6 +145,7 @@ int num = Integer.parseInt(request.getParameter("num"));
 				if (leftTime <= -2) { // 왜인지 2초 일찍 끝나서 일단 이렇게 해놓음
 					clearInterval(timer);
 					$("#leftTime").text("시간 초과");
+					isSelect = true;
 				}
 			}
 			// 처음 시작 시 1초 지연을 막기 위해 이런 구조로 함수 작성
