@@ -36,21 +36,15 @@ int num = Integer.parseInt(request.getParameter("num"));
 			}
 			.row2 {
 				position: absolute;
-				top: 70%;
+				top: 76%;
 				left: 50%;
-				transform: translate(-50%, -70%);
+				transform: translate(-50%, -76%);
 			}
 			#tolist1 {
 				position: absolute;
 				top: 90%;
 				left: 90%;
 				transform: translate(-90%, -90%);
-			}
-			#tolist2 {
-				position: absolute;
-				top: 100%;
-				left: 90%;
-				transform: translate(-90%, -100%);
 			}
 			font {
 				font-family: 'Jua', sans-serif;

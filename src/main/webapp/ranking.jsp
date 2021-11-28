@@ -125,10 +125,12 @@ List<Rank> rank = MemberDAO.getInstance().getRankList();
 					  <%
 					    } 
 					  %>
+					  <tr></tr>
+					  <tr></tr>
 				  </tbody>
 				</table>
 				
-				<table class="table table-hover" id="myrank" style="text-align: center">
+				<table class="table table-hover" style="text-align: center">
 				  <thead>
 				    <tr>
 				      <th scope="col"><font size="6">MY</font></th>
