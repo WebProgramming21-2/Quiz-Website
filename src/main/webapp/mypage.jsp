@@ -30,7 +30,7 @@
 List<Rank> rank = MemberDAO.getInstance().getRankList();
 %>
 <html>
-	<title>모드선택</title>
+	<title>마이페이지</title>
 	<head>
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

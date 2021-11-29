@@ -36,6 +36,8 @@
 	<body>
 		<%
 			PrintWriter script = response.getWriter();
+			// 메인 페이지로 이동했을 때 세션에 값이 담겨있는지 체크
+			// 로그인이 되지 않은 상태에서 이동했는지 검사
 			String login = (String)session.getAttribute("login");
 			if(login == null){
 				script.println("<script>");
@@ -43,14 +45,23 @@
 				script.println("location.href='login.jsp'");
 				script.println("</script>");
 			}
-			// 메인 페이지로 이동했을 때 세션에 값이 담겨있는지 체크
+			// 직접 url을 입력해서 들어왔는지 검사
+			if(request.getHeader("referer") == null){
+				script.println("<script>");
+				script.println("alert('비정상적인 접근입니다.')");
+				script.println("location.href='main.jsp'");
+				script.println("</script>");
+			}
+			else{ // 직접 url을 입력하지 않은 경우만 DAO 객체 생성
+				out.println(request.getHeader("referer"));
+				String userID = (String)session.getAttribute("userID");
+				MemberDAO.getInstance().setScore(userID, Integer.parseInt(request.getParameter("score")));
+			}
 			String userID = null;
 			String userName = null;
 			if(session.getAttribute("userID") != null){
 				userID = (String)session.getAttribute("userID");
-				
 				// 점수 갱신
-				MemberDAO.getInstance().setScore(userID, Integer.parseInt(request.getParameter("score")));
 			}
 			if(session.getAttribute("userName") != null){
 				userName = (String)session.getAttribute("userName");

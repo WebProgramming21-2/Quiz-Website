@@ -98,10 +98,9 @@ session.setAttribute("quizList", quizList);
 		<button type="button" class="btn btn-outline-info" id="quiz" onclick="goQuiz()">시작</button>
 	
 		<script type="text/javascript">
-			var score = 0;
-			
+		// 퀴즈 시작
 			function goQuiz(){
-				sessionStorage.setItem("score", "0");
+				sessionStorage.setItem("score", "0"); // score의 초기값은 0
 				window.location = "quiz.jsp?num=0";
 			}
 		</script>

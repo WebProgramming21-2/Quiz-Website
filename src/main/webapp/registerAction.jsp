@@ -32,11 +32,6 @@
 			return false;
 		return true;
 	}
-	
-	// 추가 구현?(닉네임에 욕설 필터링)
-	private boolean filtering_curse(String name){
-		return true;
-	}
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -78,6 +73,7 @@
 				script.println("</script>");
 			}
 			else{
+			// 모든 검사에 걸리지 않은 경우
 			// dao, dto 객체 생성
 				MemberDAO dao = MemberDAO.getInstance();
 				MemberDTO member = new MemberDTO(user_id, user_pw, user_name, 0);
