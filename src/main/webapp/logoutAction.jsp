@@ -9,6 +9,7 @@
 </head>
 <body>
 <%
+	// 로그인한 상태인지 체크
 	PrintWriter script = response.getWriter();
 	String login = (String)session.getAttribute("login");
 	if(login == null){
@@ -19,13 +20,13 @@
 	}
 %>
 <%
-	session.invalidate();
+	session.invalidate(); // 모든 세션에 저장된 값을 삭제
 %>
 	<script>
 	alert('로그아웃 되었습니다.')
 	</script> 
 <%
-	response.sendRedirect("index.jsp");
+	response.sendRedirect("index.jsp"); // 초기화면으로 돌아간다.
 %>
 </body>
 </html>

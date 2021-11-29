@@ -5,9 +5,8 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="Quiz.*" %>
 <%
-List<QuizDTO> quizList = (List<QuizDTO>)session.getAttribute("quizList");
-int num = Integer.parseInt(request.getParameter("num"));
-
+List<QuizDTO> quizList = (List<QuizDTO>)session.getAttribute("quizList"); // 세션에 저장된 문제리스트
+int num = Integer.parseInt(request.getParameter("num")); // 현재 문제 번호
 %>
 <!DOCTYPE html>
 <html>
@@ -70,7 +69,8 @@ int num = Integer.parseInt(request.getParameter("num"));
 			// 최대 문제 개수를 넘으면 beforeRank로 넘어감
 			if (num >= 10) {
 				script.println("<script>");
-				script.println("location.href='beforeRank.jsp?score=" + request.getParameter("score") + "'");
+				script.println("alert('비정상적인 접근입니다.')");
+				script.println("location.href='main.jsp'");
 				script.println("</script>");
 			} else {
 		%>
@@ -134,10 +134,11 @@ int num = Integer.parseInt(request.getParameter("num"));
 		</div>
 		
 		<script type="text/javascript">
-			var isSelect = false;
+			var isSelect = false; // 선지를 선택했는지 확인하는 변수
 			var correctAnswer = <%=quizList.get(num).getAnswer()%>//정답, 이 부분도 모든 문제에 대체 가능하게 만들 수 있도록 정답list를 만드는 것도 좋을 것임.
-			var leftTime = 10; // 10초
+			var leftTime = 10; // 시간제한 10초
 			
+			// timer 표시를 위한 함수. 호출될 때마다 1초씩 감소
 			function timerCallback() {
 				$("#leftTime").text("남은시간 : " + leftTime + " 초");
 				leftTime--;
@@ -148,6 +149,7 @@ int num = Integer.parseInt(request.getParameter("num"));
 					isSelect = true;
 				}
 			}
+			
 			// 처음 시작 시 1초 지연을 막기 위해 이런 구조로 함수 작성
 			function startInterval(callback) {
 				callback();
@@ -155,8 +157,10 @@ int num = Integer.parseInt(request.getParameter("num"));
 			}
 			
 			var timer = startInterval(timerCallback);
-			var score = <%= request.getParameter("score") %>; // 문제를 맞출 때마다 값을 더해줘서 최종점수를 개인 ID db에 스코어를 저장해야할 것.
-	
+			var score = parseInt(sessionStorage.getItem("score")); // sessionStorage에 저장된 score를 받아온다.
+			$("#score").text("현재 점수 : " + score + " 점"); // 현재 점수 출력
+			
+			// 선지를 선택했을 때 실행되는 함수
 			function check_answer(answer){
 				// 아직 선택하지 않은 경우만 텍스트 변경
 				if (!isSelect) {
@@ -174,9 +178,18 @@ int num = Integer.parseInt(request.getParameter("num"));
 				
 			}
 			
-			function goNext(){
-				window.location = "quiz.jsp?num=<%=num+1%>&score=" + score;
+			// 다음 문제로 넘어가는 함수
+			function goNext(){ 
+				if(<%= num %> + 1 == 10 ){ // 모든 문제를 푼 경우
+					window.location = "beforeRank.jsp?score=" + score; // score를 get방식으로 넘겨줌. 
+																	   //url을 직접 입력하여 점수를 조작하는 문제는 beforeRank에서 해결.
+				}
+				else{ // 문제를 다 풀지 않은 경우 다음 문제로 넘어간다.
+					sessionStorage.setItem("score", score); // score는 sessionStorage에 저장
+					window.location = "quiz.jsp?num=<%=num+1%>"; 
+				}
 			}
+			
 		</script>
 		<% } %>
 	</body>

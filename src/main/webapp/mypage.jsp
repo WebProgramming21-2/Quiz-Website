@@ -1,8 +1,36 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.io.*" %>
+<%@ page import="java.util.*" %>
+<%@ page import="Member.*" %>
+<%!
+	// 유저의 랭킹
+	public int userRank(String name, List<Rank>rank){ 
+		int ranking = 1;
+		for(int i=0; i<rank.size(); i++){
+			if(rank.get(i).getName().equals(name)){
+				return ranking;
+			}
+			ranking++;
+		}
+		return -1; // 이름을 못찾았다면 오류
+	}
+	
+	// 유저의 점수
+		public int userScore(String name, List<Rank>rank){ 
+			for(int i=0; i<rank.size(); i++){
+				if(rank.get(i).getName().equals(name)){
+					return rank.get(i).getScore();
+				}
+			}
+			return -1; // 이름을 못찾았다면 오류
+		}
+%>
+<%
+List<Rank> rank = MemberDAO.getInstance().getRankList();
+%>
 <html>
-	<title>모드선택</title>
+	<title>마이페이지</title>
 	<head>
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -45,6 +73,7 @@
 			if(session.getAttribute("userName") != null){
 				userName = (String)session.getAttribute("userName");
 			}
+			String userID = (String)session.getAttribute("userID");
 		%>
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		  <div class="container-fluid">
@@ -76,10 +105,16 @@
 			<p id="inf" align="center"><font size="7">회원정보</font></p><br><br>
 			
 			<div id="Pid" style="border:1px solid; padding:10px;">
-				<font size="5">ID: <%= session.getAttribute("userID") %> </font>
+				<font size="5">ID: <%= userID %> </font>
 			</div><br><br>
 			<div id="Pnick" style="border:1px solid; padding:10px;">
-				<font size="5">Nickname: <%= session.getAttribute("userName") %> </font>
+				<font size="5">Nickname: <%= userName %> </font>
+			</div><br><br>
+			<div id="Pnick" style="border:1px solid; padding:10px;">
+				<font size="5">Score: <%= userScore(userName, rank) %> </font>
+			</div><br><br>
+			<div id="Pnick" style="border:1px solid; padding:10px;">
+				<font size="5">Ranking: <%= userRank(userName, rank) %> </font>
 			</div><br><br>
 			<button type="button" class="btn btn-outline-info" id="out" onclick="location.href='registerOut.jsp'"><font size="5">회원탈퇴</font></button>
 		</div>
