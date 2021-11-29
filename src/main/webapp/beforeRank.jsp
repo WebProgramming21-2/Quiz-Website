@@ -53,7 +53,6 @@
 				script.println("</script>");
 			}
 			else{ // 직접 url을 입력하지 않은 경우만 DAO 객체 생성
-				out.println(request.getHeader("referer"));
 				String userID = (String)session.getAttribute("userID");
 				MemberDAO.getInstance().setScore(userID, Integer.parseInt(request.getParameter("score")));
 			}
