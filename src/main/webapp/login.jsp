@@ -9,24 +9,21 @@
 		<script src="https://code.jquery.com/jquery-1.10.1.js"></script>
 		<link href="resources/css/bootstrap.css" rel="stylesheet">
 		<style type="text/css">
+			/*폼태그를 감싸는 div의 위치 조정 */
 			.container {
 				position: absolute;
 				left: 50%;
 				top: 50%;
 				transform: translate(-50%, -50%);
 			}
-			.badge bg-info {
-				position: absolute;
-				left: 50%;
-				top: 50%;
-				transform: translate(-50%, -50%);
-			}
+			/*사용 폰트 */
 			font {
 				font-family: 'Jua', sans-serif;
 			}
 		</style>
 	</head>
 	<body>
+		<!-- 네비게이션 바(홈, 로그인, 회원가입) -->
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		  <div class="container-fluid">
 		    <a class="navbar-brand" href="index.jsp"><font size="6">동국퀴즈</font></a>
@@ -52,8 +49,9 @@
 		  </div>
 		</nav>
 		
-		<div class="container">		<!-- 하나의 영역 생성 -->
-			<div class="col-lg-15">	<!-- 영역 크기 -->
+		<!-- 로그인 폼 태그. 입력 정보 : 아이디, 비밀번호 -->
+		<div class="container">		
+			<div class="col-lg-15">	
 				<form method="post" action="loginAction.jsp">
 					<h1 style="text-align: center;"><font size="7">로그인</font></h1>
 					<div class="form-group">

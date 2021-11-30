@@ -10,19 +10,24 @@
 		<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
 		<script src="https://code.jquery.com/jquery-1.10.1.js"></script>
 		<link href="resources/css/bootstrap.css" rel="stylesheet">
+		
+		<!--각 요소의 위치 조정 CSS-->
 		<style type="text/css">
+			/*form을 담는 div*/
 			.container {
 				position: absolute;
 				left: 50%;
 				top: 50%;
 				transform: translate(-50%, -50%);
 			}
+			/*사용 폰트*/
 			font {
 				font-family: 'Jua', sans-serif;
 			}
 		</style>
 </head>
 <body>
+	<!-- 네비게이션 바(홈, 로그인, 회원가입) -->
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="container-fluid">
 		    <a class="navbar-brand" href="index.jsp"><font size="6">동국퀴즈</font></a>
@@ -48,9 +53,9 @@
 		 </div>
 	</nav>
 
-	<!-- 회원가입 양식 -->
-	<div class="container">		<!-- 하나의 영역 생성 -->
-		<div class="col-lg-15">	<!-- 영역 크기 -->
+	<!-- div 구성 순서 : form 회원가입 정보 입력(아이디, 비밀번호, 닉네임), 회원가입 또는 리셋 버튼 -->
+	<div class="container">		
+		<div class="col-lg-15">
 			<form method="post" action="registerAction.jsp">
 				<h1 style="text-align: center;"><font size="7">회원가입</font></h1>
 				<div class="form-group">

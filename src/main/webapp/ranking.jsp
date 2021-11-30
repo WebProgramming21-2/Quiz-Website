@@ -39,17 +39,23 @@ List<Rank> rank = MemberDAO.getInstance().getRankList();
 		<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
 		<script src="https://code.jquery.com/jquery-1.10.1.js"></script>
 		<link href="resources/css/bootstrap.css" rel="stylesheet">
+		
+		<!--각 요소의 위치 조정 CSS-->
 		<style type="text/css">
+			/*사용 폰트*/
 			font {
 				font-family: 'Jua', sans-serif;
 			}
+			/*table, button을 담은 div*/
 			.row {
 				position: relative;
 				top: 180px;
 			}
+			/*모든 table에 대해*/
 			table {
 				border: 3px solid;
 			}
+			/*main.jsp로 이동하는 버튼*/
 			#goMain {
 				position: relative;
 				width: 25%;
@@ -78,6 +84,7 @@ List<Rank> rank = MemberDAO.getInstance().getRankList();
 				userName=(String)session.getAttribute("userName");
 			}
 		%>
+		<!-- 네비게이션 바(홈, 마이페이지, 로그아웃) -->
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		  <div class="container-fluid">
 		    <a class="navbar-brand" href="main.jsp"><font size="6">동국퀴즈</font></a>
@@ -103,11 +110,12 @@ List<Rank> rank = MemberDAO.getInstance().getRankList();
 		  </div>
 		</nav>
 		
+		<!-- div 구성 순서 : 1. table 1~5위까지의 점수, 랭킹 및 닉네임 출력, 2. table 사용자의 점수, 랭킹 및 닉네임 출력, 3. 메인화면으로 이동하는 버튼 -->
 		<div class="container">
 			<div class="row">
 				<table class="table table-hover" style="text-align: center">
 				  <thead>
-				    <tr>
+				    <tr class="table-primary">
 				      <th scope="col"><font size="6">등수</font></th>
 				      <th scope="col"><font size="6">점수</font></th>
 				      <th scope="col"><font size="6">유저</font></th>
@@ -117,7 +125,7 @@ List<Rank> rank = MemberDAO.getInstance().getRankList();
 					  <%
 					  	for(int i = 0; i < rank.size() && i < 5; i++) { // 5등정도까지 출력
 					  %>
-					    <tr class="table-active">
+					    <tr class="table-info">
 					      <th scope="row"><font size="5">No.<%=i+1 %></font></th>
 					      <th scope="row"><font size="5"><%= rank.get(i).getScore() %> 점</font></th>
 					      <td><font size="5"><%= rank.get(i).getName() %></font></td>
@@ -125,19 +133,19 @@ List<Rank> rank = MemberDAO.getInstance().getRankList();
 					  <%
 					    } 
 					  %>
-					  <tr></tr>
-					  <tr></tr>
 				  </tbody>
 				</table>
 				
 				<table class="table table-hover" style="text-align: center">
 				  <thead>
-				    <tr>
+				    <tr class="table-primary">
 				      <th scope="col"><font size="6">MY</font></th>
+				      <th></th>
+				      <th></th>
 				    </tr>
 				  </thead>
 				  <tbody>
-					    <tr class="table-active">
+					    <tr class="table-info">
 					      <th scope="row"><font size="5">No.<%= userRank(userName, rank) %></font></th>
 					      <th scope="row"><font size="5"><%= userScore(userName, rank) %> 점</font></th>
 					      <td><font size="5"><%= userName %></font></td>

@@ -11,7 +11,9 @@
 		
 		<script src="https://code.jquery.com/jquery-1.10.1.js"></script>
 		<link href="resources/css/bootstrap.css" rel="stylesheet">
+		<!--각 요소의 위치 조정 CSS-->
 		<style type="text/css">
+			/*알림 문장 위치*/
 			#wait {
 				position: absolute;
 				top: 45%;
@@ -19,6 +21,7 @@
 				transform: translate(-50%, -45%);
 				font-family: 'Jua', sans-serif;
 			}
+			/*랭킹 확인 이동 버튼 */
 			#quiz {
 				position: absolute;
 				top: 70%;
@@ -27,6 +30,7 @@
 				font-size: 40px;
 				font-family: 'Jua', sans-serif;
 			}
+			/*사용 폰트 */
 			font {
 				font-family: 'Jua', sans-serif;
 			}
@@ -66,6 +70,7 @@
 				userName = (String)session.getAttribute("userName");
 			}
 		%>
+		<!-- 네비게이션 바(홈, 마이페이지, 로그아웃) -->
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		  <div class="container-fluid">
 		    <a class="navbar-brand" href="main.jsp"><font size="6">동국퀴즈</font></a>
@@ -90,6 +95,7 @@
 		    </div>
 		  </div>
 		</nav>
+		<!-- 퀴즈가 끝났음을 알림 및 랭킹확인 이동 버튼 -->
 		<div id="wait">
 			<h1><font>퀴즈를 무사히 끝마쳤습니다!</font></h1>
 			<h1 align="center"><font>당신의 랭킹을 확인해보세요!</font></h1>
