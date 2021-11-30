@@ -9,46 +9,31 @@
 		
 		<script src="https://code.jquery.com/jquery-1.10.1.js"></script>
 		<link href="resources/css/bootstrap.css" rel="stylesheet">
+		
+		<!--각 요소의 위치 조정 CSS-->
 		<style type="text/css">
-			.table {
-				text-align: center;
-				position: absolute;
-				top: 50%;
-				transform: translateY(-50%);
-				border-top: none;
-			}
+			/*로그인 회원가입 권장 알림 h1 */
 			#please {
 				position: absolute;
 				top: 40%;
 				left: 50%;
 				transform: translate(-50%, -40%);
-			}
-			#learn {
-				text-align: center;
-				position: absolute;
-				top: 50%;
-				left: 30%;
-				transform: translate(-30%, -50%);
-			}
-			#quiz {
-				text-align: center;
-				position: absolute;
-				top: 50%;
-				left: 70%;
-				transform: translate(-70%, -50%);
-			}
+			}		
+			/*로그인 이동 버튼 */
 			#list1 {
 				position: absolute;
 				top: 70%;
 				left: 35%;
 				transform: translate(-35%, -70%);
 			}
+			/*회원가입 이동 버튼 */
 			#list2 {
 				position: absolute;
 				top: 70%;
 				left: 65%;
 				transform: translate(-65%, -70%);
 			}
+			/*사용 폰트 */
 			font {
 				font-family: 'Jua', sans-serif;
 			}
@@ -62,6 +47,8 @@
 				userID = (String)session.getAttribute("userID");
 			}
 		%>
+		
+		<!-- 네비게이션 바(홈, 로그인, 회원가입) -->
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		  <div class="container-fluid">
 		    <a class="navbar-brand" href="index.jsp"><font size="6">동국퀴즈</font></a>
@@ -86,6 +73,7 @@
 		    </div>
 		  </div>
 		</nav>
+		<!-- 로그인 또는 회원가입 권장 알림. 로그인 또는 회원가입 창 이동 버튼 -->
 		<div class="container">
 			<h1 id="please" align="center"><font size="7">로그인 또는 회원가입을 해주세요.</font></h1>
 			<div class="d-grid gap-5" id="list1">

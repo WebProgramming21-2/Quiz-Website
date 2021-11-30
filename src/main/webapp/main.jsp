@@ -9,21 +9,10 @@
 		<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
 		<script src="https://code.jquery.com/jquery-1.10.1.js"></script>
 		<link href="resources/css/bootstrap.css" rel="stylesheet">
+		
+		<!--각 요소의 위치 조정 CSS-->
 		<style type="text/css">
-			.table {
-				text-align: center;
-				position: absolute;
-				top: 50%;
-				transform: translateY(-50%);
-				border-top: none;
-			}
-			#please {
-				position: absolute;
-				top: 50%;
-				left: 50%;
-				transform: translate(-50%, -50%);
-			}
-			
+			/*학습모드 이동 버튼*/
 			#learn {
 				text-align: center;
 				position: absolute;
@@ -31,6 +20,7 @@
 				left: 30%;
 				transform: translate(-30%, -78%);
 			}
+			/*퀴즈모드 이동 버튼*/
 			#quiz {
 				text-align: center;
 				position: absolute;
@@ -38,24 +28,28 @@
 				left: 70%;
 				transform: translate(-70%, -78%);
 			}
+			/*학습모드 설명 카드*/
 			#lcard {
 				position: absolute;
 				top: 60%;
 				left: 27%;
 				transform: translate(-27%, -60%);
 			}
+			/*퀴즈모드 설명 카드*/
 			#qcard {
 				position: absolute;
 				top: 60%;
 				left: 73%;
 				transform: translate(-73%, -60%);
 			}
+			/*원하는 모드 선택 알림 문장 h1*/
 			.head {
 				position: absolute;
 				top: 30%;
 				left: 50%;
 				transform: translate(-50%, -30%);
 			}
+			/*사용 폰트*/
 			font {
 				font-family: 'Jua', sans-serif;
 			}
@@ -77,6 +71,7 @@
 				userName = (String)session.getAttribute("userName");
 			}
 		%>
+		<!-- 네비게이션 바(홈, 마이페이지, 로그아웃) -->
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		  <div class="container-fluid">
 		    <a class="navbar-brand" href="main.jsp"><font size="6">동국퀴즈</font></a>
@@ -101,6 +96,7 @@
 		    </div>
 		  </div>
 		</nav>
+		<!-- div구성 순서 : 1. 알림 문장 2. 학습모드 설명 + 학습모드 이동 버튼, 3. 퀴즈모드 설명 + 퀴즈모드 이동 버튼 -->
 		<div class="container">
 			<div class="content">
 				<h1 class="head"><font size="7">원하는 모드를 선택하세요</font></h1>

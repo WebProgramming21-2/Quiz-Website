@@ -27,25 +27,31 @@ List<QuizDTO> quizList = QuizDAO.getInstance().getQuizList();
 		<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
 		<script src="https://code.jquery.com/jquery-1.10.1.js"></script>
 		<link href="resources/css/bootstrap.css" rel="stylesheet">
+		
+		<!--각 요소의 위치 조정 CSS-->
 		<style type="text/css">
+			/*문제출력부*/
 			.row1 {
 				position: absolute;
 				top: 30%;
 				left: 50%;
 				transform: translate(-50%, -30%);
 			}
+			/*선지출력부*/
 			.row2 {
 				position: absolute;
 				top: 76%;
 				left: 50%;
 				transform: translate(-50%, -76%);
 			}
+			/*학습모드 목록으로 이동하는 버튼*/
 			#tolist {
 				position: absolute;
 				top: 90%;
 				left: 90%;
 				transform: translate(-90%, -90%);
 			}
+			/*사용 폰트*/
 			font {
 				font-family: 'Jua', sans-serif;
 			}
@@ -75,6 +81,7 @@ List<QuizDTO> quizList = QuizDAO.getInstance().getQuizList();
 			QuizDTO quiz = quizList.get(quizID-1);
 			int correct = quizList.get(quizID-1).getAnswer();
 		%>
+		<!-- 네비게이션 바(홈, 학습모드, 마이페이지, 로그아웃) -->
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		  <div class="container-fluid">
 		    <a class="navbar-brand" href="main.jsp"><font size="6">동국퀴즈</font></a>
@@ -101,6 +108,7 @@ List<QuizDTO> quizList = QuizDAO.getInstance().getQuizList();
 		  </div>
 		</nav>
 		
+		<!-- div 구성 순서 : 1. row1문제출력부(문제 번호, 문제), 2. row2선지출력부, 3. 학습모드 목록으로 이동하는 버튼 -->
 		<div class="container">
 			<div class="row1">
 			<div class="card text-white bg-info mb-3" style="max-width: 40rem;">
@@ -126,14 +134,14 @@ List<QuizDTO> quizList = QuizDAO.getInstance().getQuizList();
 		</div>
 		
 		<script type="text/javascript">
-			var correctAnswer = "<%=correct %>";//정답
+			var correctAnswer = "<%=correct %>";// 문제에 대한 정답
 	
 	
 			function check_answer(answer){
 				if (correctAnswer==answer){
-					document.getElementById("card-text").innerHTML="<font color=white><b>정답입니다.</b></font>";
+					document.getElementById("card-text").innerHTML="<font color=white><b>정답입니다.</b></font>"; // 정답일 경우
 				} else {
-					document.getElementById("card-text").innerHTML="<font color=white><b>땡! 틀렸습니다. 정답은 </b></font>" + correctAnswer + "<font color=white><b>번 입니다.</b></font>";
+					document.getElementById("card-text").innerHTML="<font color=white><b>땡! 틀렸습니다. 정답은 </b></font>" + correctAnswer + "<font color=white><b>번 입니다.</b></font>"; // 오답일 경우
 				}
 			}
 		</script>

@@ -28,9 +28,19 @@ List<QuizDTO> quizList = QuizDAO.getInstance().getQuizList();
 		<script src="https://code.jquery.com/jquery-1.10.1.js"></script>
 		<link href="resources/css/bootstrap.css" rel="stylesheet">
 		
+		<!--각 요소의 위치 조정 CSS-->
 		<style type="text/css">
 			font {
 				font-family: 'Jua', sans-serif;
+			}
+			/*모든 table에 대해*/
+			table {
+				border: 3px solid;
+			}
+			/*table을 담은 div*/
+			.row {
+				position: relative;
+				top: 90px;
 			}
 		</style>
 	</head>
@@ -42,6 +52,7 @@ List<QuizDTO> quizList = QuizDAO.getInstance().getQuizList();
 				userName = (String)session.getAttribute("userName");
 			}
 		%>
+		<!-- 네비게이션 바(홈, 학습모드, 마이페이지, 로그아웃) -->
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		  <div class="container-fluid">
 		    <a class="navbar-brand" href="main.jsp"><font size="6">동국퀴즈</font></a>
@@ -68,11 +79,12 @@ List<QuizDTO> quizList = QuizDAO.getInstance().getQuizList();
 		  </div>
 		</nav>
 		
+		<!-- div 구성 순서 : 1. table 총 문제 목록(문제 번호, 문제 제목) -->
 		<div class="container">
 			<div class="row">
 				<table class="table table-hover" style="text-align: center">
 				  <thead>
-				    <tr>
+				    <tr class="table-primary">
 				      <th scope="col"><font size="">번호</font></th>
 				      <th scope="col"><font>문제</font></th>
 				    </tr>
@@ -81,7 +93,7 @@ List<QuizDTO> quizList = QuizDAO.getInstance().getQuizList();
 					  <%
 					  	for(int i = 0; i < quizList.size(); i++) {
 					  %>
-					    <tr class="table-active">
+					    <tr class="table-info">
 					      <th scope="row"><font>No.<%= quizList.get(i).getId() %></font></th>
 					      <td><a href="study.jsp?quizID=<%= quizList.get(i).getId() %>"><font><%= quizList.get(i).getTitle() %></font></a></td>
 					    </tr>

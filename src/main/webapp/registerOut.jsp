@@ -9,24 +9,31 @@
 		<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
 		<script src="https://code.jquery.com/jquery-1.10.1.js"></script>
 		<link href="resources/css/bootstrap.css" rel="stylesheet">
+		
+		<!--각 요소의 위치 조정 CSS-->
 		<style type="text/css">
+			/*사용 폰트*/
 			font {
 				font-family: 'Jua', sans-serif;
 			}
+			/*form과 p를 담는 div*/
 			#all_inf {
 				position: absolute;
 				top: 46%;
 				left: 50%;
 				transform: translate(-50%, -46%);
 			}
+			/*
 			#out {
 				position: relative;
 				left: 33%;
 				top: 0%;
 			}
+			
 			#Pid, #Pnick {
 				background-color: white;
 			}
+			*/
 		</style>
 	</head>
 	<body>
@@ -45,6 +52,7 @@
 				userName = (String)session.getAttribute("userName");
 			}
 		%>
+		<!-- 네비게이션 바(홈, 마이페이지, 로그아웃) -->
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		  <div class="container-fluid">
 		    <a class="navbar-brand" href="main.jsp"><font size="6">동국퀴즈</font></a>
@@ -71,6 +79,7 @@
 		</nav>
 		<br>
 		
+		<!-- div 구성 순서 : 1. p 회원탈퇴 문장, 2. form 비밀번호 입력부, 탈퇴 버튼 -->
 		<div id="all_inf">
 			<p id="inf" align="center"><font size="7">회원탈퇴</font></p><br><br>
 			

@@ -29,7 +29,10 @@ session.setAttribute("quizList", quizList);
 		
 		<script src="https://code.jquery.com/jquery-1.10.1.js"></script>
 		<link href="resources/css/bootstrap.css" rel="stylesheet">
+		
+		<!--각 요소의 위치 조정 CSS-->
 		<style type="text/css">
+			/*퀴즈 시작 전 알림 문장*/
 			#wait {
 				position: absolute;
 				top: 45%;
@@ -37,6 +40,7 @@ session.setAttribute("quizList", quizList);
 				transform: translate(-50%, -45%);
 				font-family: 'Jua', sans-serif;
 			}
+			/*퀴즈 시작 버튼*/
 			#quiz {
 				position: absolute;
 				top: 70%;
@@ -45,6 +49,7 @@ session.setAttribute("quizList", quizList);
 				font-size: 40px;
 				font-family: 'Jua', sans-serif;
 			}
+			/*사용 폰트*/
 			font {
 				font-family: 'Jua', sans-serif;
 			}
@@ -67,6 +72,7 @@ session.setAttribute("quizList", quizList);
 				userName = (String)session.getAttribute("userName");
 			}
 		%>
+		<!-- 네비게이션 바(홈, 마이페이지, 로그아웃) -->
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		  <div class="container-fluid">
 		    <a class="navbar-brand" href="main.jsp"><font size="6">동국퀴즈</font></a>
@@ -91,10 +97,13 @@ session.setAttribute("quizList", quizList);
 		    </div>
 		  </div>
 		</nav>
+		
+		<!-- 퀴즈 시작 전 알림 문장 -->
 		<div id="wait">
 			<h1><font>준비되면 시작 버튼을 눌러 퀴즈를 시작하세요!</font></h1>
 			<h1 align="center"><font>각 퀴즈 당 제한시간은 10초 입니다.</font></h1>
 		</div>
+		<!-- 퀴즈 시작 이동 버튼 -->
 		<button type="button" class="btn btn-outline-info" id="quiz" onclick="goQuiz()">시작</button>
 	
 		<script type="text/javascript">

@@ -20,31 +20,38 @@ int num = Integer.parseInt(request.getParameter("num")); // 현재 문제 번호
 		
 		<script src="https://code.jquery.com/jquery-1.10.1.js"></script>
 		<link href="resources/css/bootstrap.css" rel="stylesheet">
+		
+		<!--각 요소의 위치 조정 CSS-->
 		<style type="text/css">
+			/*점수 출력부*/
 			.row0 {
 				position: absolute;
 				top: 30%;
 				left: 50%;
 				transform: translate(-50%, -150%);
 			}
+			/*문제 출력부*/
 			.row1 {
 				position: absolute;
 				top: 30%;
 				left: 50%;
 				transform: translate(-50%, -30%);
 			}
+			/*선지 출력부*/
 			.row2 {
 				position: absolute;
 				top: 76%;
 				left: 50%;
 				transform: translate(-50%, -76%);
 			}
+			/*다음 문제 이동 버튼*/
 			#tolist1 {
 				position: absolute;
 				top: 90%;
 				left: 90%;
 				transform: translate(-90%, -90%);
 			}
+			/*사용 폰트*/
 			font {
 				font-family: 'Jua', sans-serif;
 			}
@@ -74,6 +81,7 @@ int num = Integer.parseInt(request.getParameter("num")); // 현재 문제 번호
 				script.println("</script>");
 			} else {
 		%>
+		<!-- 네비게이션 바(홈, 퀴즈모드, 마이페이지, 로그아웃) -->
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		  <div class="container-fluid">
 		    <a class="navbar-brand" href="main.jsp"><font size="6">동국퀴즈</font></a>
@@ -100,8 +108,8 @@ int num = Integer.parseInt(request.getParameter("num")); // 현재 문제 번호
 		  </div>
 		</nav>
 		
+		<!-- div 구성순서 : 1. row0현재 합산 score, 2. row1문제나오는 창(남은시간, 문제), 3. row2선지 출력부, 4. button 다음문제 이동 버튼 -->
 		<div class="container">
-			<%--여기부터 문제가 나오는 박스 부분. 이 박스 안에서 문제를 계속 갈아줘야함.문제가 보이는 화면을 예시로 들기 위해 문제 1번을 가져와봤음.--%>
 			<div class="row0">
 				<div class="card text-white bg-info mb-3" style="max-width: 40rem;">
 			  	<div class="card-header"><font size="5"><b><span id="score">현재 점수 : <%= request.getParameter("score") %> 점</span></b></font></div>
@@ -117,7 +125,6 @@ int num = Integer.parseInt(request.getParameter("num")); // 현재 문제 번호
 				  </div>
 				</div>
 			</div>
-			<%--여기부터 선지가 나오는 부분. 이 선지 버튼들의 내용도 문제에 따라 계속 갈아줘야 함. 예시로 1번 문제의 선지를 가져와봤음.--%>
 			<div class="row2">
 				<div class="d-grid gap-2">
 					<%
@@ -129,7 +136,6 @@ int num = Integer.parseInt(request.getParameter("num")); // 현재 문제 번호
 				  	%>
 				</div>
 			</div>
-			<%--이 버튼을 누르면 예를 들어 quizList.get(i)부분의 i 부분을 ++시킨다거나 해서 문제를 넘겨줘야 할 것임. onclick에 해당 내용을 작성하면 좋을 듯함.--%>
 			<button type="button" class="btn btn-outline-info" id="tolist1" onclick="goNext()"><font size="5">다음으로</font></button>
 		</div>
 		

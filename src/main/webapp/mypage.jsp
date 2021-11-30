@@ -37,22 +37,28 @@ List<Rank> rank = MemberDAO.getInstance().getRankList();
 		<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
 		<script src="https://code.jquery.com/jquery-1.10.1.js"></script>
 		<link href="resources/css/bootstrap.css" rel="stylesheet">
+		
+		<!--각 요소의 위치 조정 CSS-->
 		<style type="text/css">
+			/*사용 폰트*/
 			font {
 				font-family: 'Jua', sans-serif;
 			}
+			/*회원 정보를 담는 div*/
 			#all_inf {
 				position: absolute;
 				top: 46%;
 				left: 50%;
 				transform: translate(-50%, -46%);
 			}
+			/*registerOut.jsp로 이동하는 버튼*/
 			#out {
 				position: relative;
 				left: 0%;
 				top: 0%;
 				width: 100%
 			}
+			/*각 회원 정보가 출력되는 공간*/
 			#Pid, #Pnick {
 				background-color: white;
 			}
@@ -75,6 +81,7 @@ List<Rank> rank = MemberDAO.getInstance().getRankList();
 			}
 			String userID = (String)session.getAttribute("userID");
 		%>
+		<!-- 네비게이션 바(홈, 마이페이지, 로그아웃) -->
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		  <div class="container-fluid">
 		    <a class="navbar-brand" href="main.jsp"><font size="6">동국퀴즈</font></a>
@@ -101,6 +108,7 @@ List<Rank> rank = MemberDAO.getInstance().getRankList();
 		</nav>
 		<br>
 		
+		<!-- div 구성 순서 : 1. 사용자 정보(id, 닉네임, 사용자 퀴즈 점수, 사용자 랭킹), 2. 회원탈퇴로 이동하는 버튼 -->
 		<div id="all_inf">
 			<p id="inf" align="center"><font size="7">회원정보</font></p><br><br>
 			
