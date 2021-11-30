@@ -34,7 +34,7 @@
 - JDK 1.8
 ### Client
 - Google Chrome
-- Mozila Firefox
+- Mozilla Firefox
 
 ## 💡 Functionality
 - 회원가입/로그인
