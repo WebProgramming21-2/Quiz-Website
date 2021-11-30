@@ -143,10 +143,10 @@ int num = Integer.parseInt(request.getParameter("num")); // 현재 문제 번호
 				$("#leftTime").text("남은시간 : " + leftTime + " 초");
 				leftTime--;
 				
-				if (leftTime <= -2) { // 왜인지 2초 일찍 끝나서 일단 이렇게 해놓음
+				if (leftTime <= -2) { // 실제 값과 2초 차이 나기 때문에 이렇게 설정
 					clearInterval(timer);
 					$("#leftTime").text("시간 초과");
-					isSelect = true;
+					isSelect = true; // 시간 초과는 답안을 선택할 수 없도록 함
 				}
 			}
 			

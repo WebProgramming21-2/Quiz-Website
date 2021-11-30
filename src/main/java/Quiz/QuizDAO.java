@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.*;
 
+// Quiz Table에 대한 Data Access Object 클래스
 public class QuizDAO {
 	private static QuizDAO quizDAO = null;
 	private static final String driver = "com.mysql.cj.jdbc.Driver";
@@ -17,6 +18,7 @@ public class QuizDAO {
 	private Statement state;
 	private ResultSet result;
 	
+	// 생성자
 	private QuizDAO() {
 		try {
 			Class.forName(driver);
@@ -25,6 +27,8 @@ public class QuizDAO {
 		}
 	}
 	
+	// getInstance 메소드
+	// 싱글톤 패턴으로 구현
 	public static QuizDAO getInstance() {
 		if (quizDAO == null) {
 			quizDAO = new QuizDAO();
@@ -32,6 +36,8 @@ public class QuizDAO {
 			return quizDAO;
 	}
 	
+	// Quiz 데이터에 대한 get 메소드
+	// 퀴즈 데이터 전체를 리스트 형태로 가져옴
 	public List<QuizDTO> getQuizList() {
 		List<QuizDTO> ret = new ArrayList<QuizDTO>();
 		String sql = "SELECT COUNT(*) FROM QUIZ";
@@ -69,10 +75,14 @@ public class QuizDAO {
 		return ret;
 	}
 	
+	// connect 메소드
+	// db와 연결
 	private Connection getConnection() throws SQLException {
 		con = DriverManager.getConnection(url, username, password);
 		return con;
 	}
+	// close 메소드
+	// 사용이 종료된 객체들에 대해 close 작업 수행
 	private void close() {
 		try {
 			if (con != null) {

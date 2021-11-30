@@ -1,5 +1,7 @@
 package Quiz;
 
+// Quiz Table에 대한 Data Transfer Object 클래스
+// id, title, content, chioce1~4, answer를 인스턴스 변수로 가짐
 public class QuizDTO {
 	private int id;
 	private String title;
@@ -7,6 +9,7 @@ public class QuizDTO {
 	private String[] choice;
 	private int answer;
 	
+	// 생성자
 	public QuizDTO() {}
 	public QuizDTO(int id, String title, String content, String[] choice, int answer) {
 		super();
@@ -16,6 +19,7 @@ public class QuizDTO {
 		this.choice = choice;
 		this.answer = answer;
 	}
+	// 각 인스턴스 변수에 대한 getter/setter 메소드
 	public int getId() {
 		return id;
 	}

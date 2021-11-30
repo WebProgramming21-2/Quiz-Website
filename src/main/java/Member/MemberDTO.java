@@ -1,11 +1,14 @@
 package Member;
 
+// Member Table에 대한 Data Transfer Object 클래스
+// id, password, name, score를 인스턴스 변수로 가짐
 public class MemberDTO {
 	private String id;
 	private String password;
 	private String name;
 	private int score;
 	
+	// 생성자
 	public MemberDTO() {}
 	public MemberDTO(String id, String password, String name, int score) {
 		super();
@@ -14,6 +17,7 @@ public class MemberDTO {
 		this.name = name;
 		this.score = score;
 	}
+	// 각 인스턴스 변수에 대한 getter/setter 메소드
 	public String getId() {
 		return id;
 	}
