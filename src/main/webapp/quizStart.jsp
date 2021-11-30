@@ -21,7 +21,7 @@ session.setAttribute("quizList", quizList);
 
 %>
 <html>
-	<title>quiz</title>
+	<title>퀴즈 모드</title>
 	<head>
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

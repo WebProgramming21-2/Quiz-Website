@@ -12,7 +12,7 @@ int num = Integer.parseInt(request.getParameter("num")); // 현재 문제 번호
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>학습목록</title>
+		<title>퀴즈 모드</title>
 		
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
