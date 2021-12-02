@@ -3,7 +3,7 @@
 - 동국대학교 관련 다양한 정보를 바탕으로 한 퀴즈 웹사이트
 
 ### Demo Website
-- http://donggukquiz.herokuapp.com/
+- https://donggukquiz.herokuapp.com/
 
 (현재 웹사이트가 휴면 상태일 경우 첫 로딩에 시간이 소요되므로 조금 기다려야 한다.)
 
