@@ -53,8 +53,8 @@
   - 회원 탈퇴 시 비밀번호 재입력 필요
 
 ## Screenshots
-<img src="https://user-images.githubusercontent.com/83688807/190842875-e354d308-7709-4f47-a637-70aba3184a3d.PNG" width="425" height="455"/> <img src="https://user-images.githubusercontent.com/83688807/190842943-46130bd4-7b14-489a-a248-ed4184890dbc.PNG" width="425" height="455"/>
+<img src="https://user-images.githubusercontent.com/83688807/190842875-e354d308-7709-4f47-a637-70aba3184a3d.PNG" width="319" height="341"/> <img src="https://user-images.githubusercontent.com/83688807/190842943-46130bd4-7b14-489a-a248-ed4184890dbc.PNG" width="319" height="341"/>
 
-<img src="https://user-images.githubusercontent.com/83688807/190842948-d1c4c126-e599-412e-afb1-981ecd6e4408.PNG" width="425" height="455"/> <img src="https://user-images.githubusercontent.com/83688807/190842955-747c1123-5532-4481-9996-dc8eb19a2486.PNG" width="425" height="455"/>
+<img src="https://user-images.githubusercontent.com/83688807/190842948-d1c4c126-e599-412e-afb1-981ecd6e4408.PNG" width="319" height="341"/> <img src="https://user-images.githubusercontent.com/83688807/190842955-747c1123-5532-4481-9996-dc8eb19a2486.PNG" width="319" height="341"/>
 
-<img src="https://user-images.githubusercontent.com/83688807/190842965-10340bdb-fc72-4cc5-9bfc-a8b7e8c990ba.PNG" width="425" height="455"/> <img src="https://user-images.githubusercontent.com/83688807/190842988-dce78ae5-b055-4808-a6eb-9265fba523ef.PNG" width="425" height="455"/>
+<img src="https://user-images.githubusercontent.com/83688807/190842965-10340bdb-fc72-4cc5-9bfc-a8b7e8c990ba.PNG" width="319" height="341"/> <img src="https://user-images.githubusercontent.com/83688807/190842988-dce78ae5-b055-4808-a6eb-9265fba523ef.PNG" width="319" height="341"/>
